@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pomdp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/pomdp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
