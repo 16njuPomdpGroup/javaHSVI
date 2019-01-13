@@ -1,13 +1,15 @@
-锘縫ackage pomdp.integral;
+package pomdp.integral;
 
-public class Beta extends Eval{
+import pomdp.integral.Eval;
+
+public class Beta extends Eval {
 	
 	/**
 	 * 
 	 * @param a 
 	 * @param b
-	 * @param beginValue 绉垎涓嬮檺
-	 * @param endValue 绉垎涓婇檺
+	 * @param beginValue 积分下限
+	 * @param endValue 积分上限
 	 * @return
 	 */
 	public double calculateBeta(int a, int b, double beginValue,double endValue ){
@@ -24,7 +26,7 @@ public class Beta extends Eval{
 	}
 	
 	/**
-	 * 璁＄畻浼介┈鍑芥暟
+	 * 计算伽马函数
 	 * @param n
 	 * @return
 	 */

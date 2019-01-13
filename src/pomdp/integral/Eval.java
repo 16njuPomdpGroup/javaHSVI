@@ -29,7 +29,7 @@ public class Eval implements IEval {
 			} else if (xChar != ' ') {
 				temp = "";
 				shouldContinue = false;
-				throw new Exception("è¿ç®—å¼æ ¼å¼é”™è¯¯ï¼ï¼ˆæ— æ•ˆç¬¦å·â€œ" + xChar + "â€ï¼‰");
+				throw new Exception("ÔËËãÊ½¸ñÊ½´íÎó£¡£¨ÎŞĞ§·ûºÅ¡°" + xChar + "¡±£©");
 			}
 		}
 		return temp;
@@ -50,7 +50,7 @@ public class Eval implements IEval {
 					tempNumber = tempNumber + str.charAt(i);
 				} else {
 					shouldContinue = false;
-					throw new Exception("è¿ç®—å¼æ ¼å¼é”™è¯¯ï¼ï¼ˆæ•°å­—é”™è¯¯ï¼‰");
+					throw new Exception("ÔËËãÊ½¸ñÊ½´íÎó£¡£¨Êı×Ö´íÎó£©");
 				}
 				numLength++;
 			} else {
@@ -61,12 +61,12 @@ public class Eval implements IEval {
 	}
 
 	/**
-	 * å››åˆ™è¿ç®—
+	 * ËÄÔòÔËËã
 	 * 
-	 * @author åŒ—å¤§é’é¸Ÿ--æœæ°¸è€€
+	 * @author ±±´óÇàÄñ--¶ÅÓÀÒ«
 	 * @param expression
-	 *            è¡¨è¾¾å¼ã€‚ä¸èƒ½åŒ…å«æ•°å­¦å‡½æ•°ï¼Œåªèƒ½ç”±æ•°å­—ã€æ‹¬å·æˆ–åŸºæœ¬è¿ç®—ç¬¦ç»„æˆ
-	 * @return è¡¨è¾¾å¼è®¡ç®—åçš„ç»“æœ
+	 *            ±í´ïÊ½¡£²»ÄÜ°üº¬ÊıÑ§º¯Êı£¬Ö»ÄÜÓÉÊı×Ö¡¢À¨ºÅ»ò»ù±¾ÔËËã·û×é³É
+	 * @return ±í´ïÊ½¼ÆËãºóµÄ½á¹û
 	 * @throws Exception
 	 */
 	public double eval(String expression) throws Exception {
@@ -143,7 +143,7 @@ public class Eval implements IEval {
 				shouldContinue = true;
 				return Double.parseDouble(stackOpnd.remove(0).toString());
 			} catch (Exception ex) {
-				throw new Exception("è¿ç®—å¼æ ¼å¼é”™è¯¯ï¼ï¼ˆé€»è¾‘é”™è¯¯ï¼‰");
+				throw new Exception("ÔËËãÊ½¸ñÊ½´íÎó£¡£¨Âß¼­´íÎó£©");
 			}
 		} else {
 			shouldContinue = true;
@@ -273,11 +273,11 @@ public class Eval implements IEval {
 		return 'x';
 	}
 
-	// æ‰§è¡Œå¸¦ä¸€ä¸ªå‚æ•°çš„æ•°å­¦å‡½æ•°
+	// Ö´ĞĞ´øÒ»¸ö²ÎÊıµÄÊıÑ§º¯Êı
 	private String getPartResultWithOneParameter(String expression,
 			String functionName) throws Exception {
 		String result = null;
-		// è°ƒç”¨æ•°å­¦å‡½æ•°
+		// µ÷ÓÃÊıÑ§º¯Êı
 		Method[] m = Math.class.getMethods();
 		for (int i = 0; i < m.length; i++) {
 			if (m[i].getName().equals(functionName)
@@ -292,7 +292,7 @@ public class Eval implements IEval {
 		return "(" + result + ")";
 	}
 
-	// æ‰§è¡Œå¸¦ä¸¤ä¸ªå‚æ•°çš„æ•°å­¦å‡½æ•°
+	// Ö´ĞĞ´øÁ½¸ö²ÎÊıµÄÊıÑ§º¯Êı
 	private String getPartResultWithTwoParameter(String expression,
 			String functionName) throws Exception {
 		String result = null;
@@ -300,7 +300,7 @@ public class Eval implements IEval {
 		double[] parameters = new double[2];
 		parameters[0] = Double.parseDouble(tempParameters[0]);
 		parameters[1] = Double.parseDouble(tempParameters[1]);
-		// è°ƒç”¨æ•°å­¦å‡½æ•°
+		// µ÷ÓÃÊıÑ§º¯Êı
 		Method[] m = Math.class.getMethods();
 		for (int i = 0; i < m.length; i++) {
 			if (m[i].getName().equals(functionName)
@@ -315,7 +315,7 @@ public class Eval implements IEval {
 		return "(" + result + ")";
 	}
 
-	// æ‹†åˆ†è¡¨è¾¾å¼ä¸ºä¸‰éƒ¨åˆ†ï¼šä»¥æŸæ•°å­¦å‡½æ•°ä¸ºç•Œï¼Œåˆ†ä¸ºå‡½æ•°å‰ï¼Œå‚æ•°ï¼Œå‡½æ•°å
+	// ²ğ·Ö±í´ïÊ½ÎªÈı²¿·Ö£ºÒÔÄ³ÊıÑ§º¯ÊıÎª½ç£¬·ÖÎªº¯ÊıÇ°£¬²ÎÊı£¬º¯Êıºó
 	private String[] splitStr(String expression, String functionName)
 			throws Exception {
 		String[] result = new String[3];
@@ -323,7 +323,7 @@ public class Eval implements IEval {
 		int beginPosition = -1;
 		int endPosition = -1;
 
-		// ç¡®å®šä¸‰éƒ¨åˆ†å„è‡ªçš„èŒƒå›´
+		// È·¶¨Èı²¿·Ö¸÷×ÔµÄ·¶Î§
 		if (tempIntB >= 0) {
 			beginPosition = expression.indexOf("(", tempIntB);
 			int counter = 0;
@@ -340,7 +340,7 @@ public class Eval implements IEval {
 			}
 		}
 
-		// ç”Ÿæˆâ€œå‡½æ•°å‰â€ã€â€œå‚æ•°â€ã€â€œå‡½æ•°åâ€
+		// Éú³É¡°º¯ÊıÇ°¡±¡¢¡°²ÎÊı¡±¡¢¡°º¯Êıºó¡±
 		result[0] = tempIntB == 0 ? "" : expression.substring(0, tempIntB);
 		result[1] = expression.substring(beginPosition + 1, endPosition);
 		result[2] = expression.substring(endPosition + 1);
@@ -349,7 +349,7 @@ public class Eval implements IEval {
 	}
 
 	private String getMathFunctionName(String expression) {
-		// ä¸€ä¸ªå‚æ•°çš„å‡½æ•°
+		// Ò»¸ö²ÎÊıµÄº¯Êı
 		if (expression.indexOf("abs") >= 0) {
 			return "abs";
 		}
@@ -426,7 +426,7 @@ public class Eval implements IEval {
 			return "ulp";
 		}
 
-		// ä¸¤ä¸ªå‚æ•°çš„å‡½æ•°
+		// Á½¸ö²ÎÊıµÄº¯Êı
 		if (expression.indexOf("atan2") >= 0) {
 			return "atan2";
 		}
@@ -449,12 +449,12 @@ public class Eval implements IEval {
 	}
 
 	/**
-	 * è®¡ç®—è¡¨è¾¾å¼
+	 * ¼ÆËã±í´ïÊ½
 	 * 
-	 * @author åŒ—å¤§é’é¸Ÿ--æœæ°¸è€€
+	 * @author ±±´óÇàÄñ--¶ÅÓÀÒ«
 	 * @param expression
-	 *            è¡¨è¾¾å¼ã€‚å¯ä»¥åŒ…å«æ•°å­¦å‡½æ•°ï¼ˆä»¥ java.util.Math é‡Œçš„å‡½æ•°ä¸ºå‡†ï¼‰
-	 * @return è¡¨è¾¾å¼è®¡ç®—åçš„ç»“æœ
+	 *            ±í´ïÊ½¡£¿ÉÒÔ°üº¬ÊıÑ§º¯Êı£¨ÒÔ java.util.Math ÀïµÄº¯ÊıÎª×¼£©
+	 * @return ±í´ïÊ½¼ÆËãºóµÄ½á¹û
 	 * @throws Exception
 	 */
 	public double eval2(String expression) throws Exception {
@@ -462,22 +462,22 @@ public class Eval implements IEval {
 		String currentExpression = expression;
 		String functionName = null;
 		String[] temp = null;
-		while (getMathFunctionName(currentExpression) != null) {// å¦‚æœå­˜åœ¨æ•°å­¦å‡½æ•°
+		while (getMathFunctionName(currentExpression) != null) {// Èç¹û´æÔÚÊıÑ§º¯Êı
 			functionName = getMathFunctionName(currentExpression);
 			temp = splitStr(currentExpression, functionName);
-			if (getMathFunctionName(temp[1]) == null) {// å¦‚æœå‚æ•°ä¸­ä¸åŒ…å«æ•°å­¦å‡½æ•°
-				if (temp[1].indexOf(",") < 0) {// ä¸€ä¸ªå‚æ•°
+			if (getMathFunctionName(temp[1]) == null) {// Èç¹û²ÎÊıÖĞ²»°üº¬ÊıÑ§º¯Êı
+				if (temp[1].indexOf(",") < 0) {// Ò»¸ö²ÎÊı
 					currentExpression = temp[0]
 							+ getPartResultWithOneParameter("" + eval(temp[1]),
 									functionName) + temp[2];
-				} else {// ä¸¤ä¸ªå‚æ•°
+				} else {// Á½¸ö²ÎÊı
 					String[] temp2 = temp[1].split(",");
 					currentExpression = temp[0]
 							+ getPartResultWithTwoParameter(eval(temp2[0])
 									+ "," + eval(temp2[1]), functionName)
 							+ temp[2];
 				}
-			} else {// å¦‚æœå‚æ•°ä¸­åŒ…å«æ•°å­¦å‡½æ•°
+			} else {// Èç¹û²ÎÊıÖĞ°üº¬ÊıÑ§º¯Êı
 				temp[1] = functionName + "(" + eval2(temp[1]) + ")";
 				currentExpression = temp[0] + "(" + eval2(temp[1]) + ")"
 						+ temp[2];
@@ -487,23 +487,23 @@ public class Eval implements IEval {
 	}
 
 	/**
-	 * æ±‚å¯¼ 
+	 * Çóµ¼ 
 	 * <br/> 
-	 * ç†è®ºä¾æ®--ä¸‰ç‚¹å…¬å¼ 
+	 * ÀíÂÛÒÀ¾İ--Èıµã¹«Ê½ 
 	 * <br/> 
-	 * å…¬å¼çš„è¯¦ç»†è¯æ˜è§ï¼š 
+	 * ¹«Ê½µÄÏêÏ¸Ö¤Ã÷¼û£º 
 	 * <br/> 
-	 * ã€Šæ•°å€¼åˆ†æã€‹ é‡åº†å¤§å­¦å‡ºç‰ˆç¤¾--æ¨å¤§åœ°ã€æ¶‚å…‰è£• 1998å¹´1æœˆç¬¬1ç‰ˆ ç¬¬97é¡µ 
+	 * ¡¶ÊıÖµ·ÖÎö¡· ÖØÇì´óÑ§³ö°æÉç--Ñî´óµØ¡¢Í¿¹âÔ£ 1998Äê1ÔÂµÚ1°æ µÚ97Ò³ 
 	 * <br/> 
 	 * <br/> 
-	 * æ³¨æ„ï¼šè¯¥æ–¹æ³•ä¸é€‚ç”¨äºä¸å¯å¯¼ç‚¹ï¼Œæˆ–ä¸å¯å¯¼å‡½æ•°
+	 * ×¢Òâ£º¸Ã·½·¨²»ÊÊÓÃÓÚ²»¿Éµ¼µã£¬»ò²»¿Éµ¼º¯Êı
 	 * 
-	 * @author åŒ—å¤§é’é¸Ÿ--æœæ°¸è€€
+	 * @author ±±´óÇàÄñ--¶ÅÓÀÒ«
 	 * @param expression
-	 *            è¡¨è¾¾å¼ã€‚å˜é‡ç”±å°å†™ x è¡¨ç¤ºï¼Œå¯ä»¥åŒ…å«æ•°å­¦å‡½æ•°ï¼ˆä»¥ java.util.Math é‡Œçš„å‡½æ•°ä¸ºå‡†ï¼‰
+	 *            ±í´ïÊ½¡£±äÁ¿ÓÉĞ¡Ğ´ x ±íÊ¾£¬¿ÉÒÔ°üº¬ÊıÑ§º¯Êı£¨ÒÔ java.util.Math ÀïµÄº¯ÊıÎª×¼£©
 	 * @param value
-	 *            åœ¨ä½•å¤„æ±‚å¯¼ã€‚
-	 * @return å½“å‰è¡¨è¾¾å¼åœ¨æŸç‚¹çš„å¯¼æ•°
+	 *            ÔÚºÎ´¦Çóµ¼¡£
+	 * @return µ±Ç°±í´ïÊ½ÔÚÄ³µãµÄµ¼Êı
 	 * @throws Exception
 	 */
 	public double differentiate(String expression, String value)
@@ -526,25 +526,25 @@ public class Eval implements IEval {
 	}
 
 	/**
-	 * ç§¯åˆ† 
+	 * »ı·Ö 
 	 * <br/> 
-	 * ç†è®ºä¾æ®--å¤åŒ–æŠ›ç‰©å½¢å…¬å¼ 
+	 * ÀíÂÛÒÀ¾İ--¸´»¯Å×ÎïĞÎ¹«Ê½ 
 	 * <br/> 
-	 * å…¬å¼çš„è¯¦ç»†è¯æ˜è§ï¼š 
+	 * ¹«Ê½µÄÏêÏ¸Ö¤Ã÷¼û£º 
 	 * <br/> 
-	 * ã€Šæ•°å€¼åˆ†æã€‹ é‡åº†å¤§å­¦å‡ºç‰ˆç¤¾--æ¨å¤§åœ°ã€æ¶‚å…‰è£• 1998å¹´1æœˆç¬¬1ç‰ˆ ç¬¬132é¡µ
+	 * ¡¶ÊıÖµ·ÖÎö¡· ÖØÇì´óÑ§³ö°æÉç--Ñî´óµØ¡¢Í¿¹âÔ£ 1998Äê1ÔÂµÚ1°æ µÚ132Ò³
 	 * 
-	 * @author åŒ—å¤§é’é¸Ÿ--æœæ°¸è€€
+	 * @author ±±´óÇàÄñ--¶ÅÓÀÒ«
 	 * @param expression
-	 *            è¡¨è¾¾å¼ã€‚å˜é‡ç”±å°å†™ x è¡¨ç¤ºï¼Œå¯ä»¥åŒ…å«æ•°å­¦å‡½æ•°ï¼ˆä»¥ java.util.Math é‡Œçš„å‡½æ•°ä¸ºå‡†ï¼‰
+	 *            ±í´ïÊ½¡£±äÁ¿ÓÉĞ¡Ğ´ x ±íÊ¾£¬¿ÉÒÔ°üº¬ÊıÑ§º¯Êı£¨ÒÔ java.util.Math ÀïµÄº¯ÊıÎª×¼£©
 	 * @param beginValue
-	 *            åˆå§‹å€¼ï¼Œå³å®šç§¯åˆ†çš„å¼€å§‹å€¼
+	 *            ³õÊ¼Öµ£¬¼´¶¨»ı·ÖµÄ¿ªÊ¼Öµ
 	 * @param endValue
-	 *            ç»“æŸå€¼ï¼Œå®šç§¯åˆ†çš„ç»“æŸå€¼
+	 *            ½áÊøÖµ£¬¶¨»ı·ÖµÄ½áÊøÖµ
 	 * 
 	 * @param partNumber
-	 *            åˆ†å—æ•°é‡ã€‚åˆ†å—è¶Šå¤šï¼Œç²¾åº¦è¶Šé«˜ï¼Œä½†æ˜¯æ¶ˆè€—æ—¶é—´æ›´å¤š
-	 * @return å½“å‰è¡¨è¾¾å¼åœ¨æŸä¸ªèŒƒå›´çš„å®šç§¯åˆ†ã€‚ç§¯åˆ†èŒƒå›´ç”± beginValue å’Œ endValue ç¡®å®š
+	 *            ·Ö¿éÊıÁ¿¡£·Ö¿éÔ½¶à£¬¾«¶ÈÔ½¸ß£¬µ«ÊÇÏûºÄÊ±¼ä¸ü¶à
+	 * @return µ±Ç°±í´ïÊ½ÔÚÄ³¸ö·¶Î§µÄ¶¨»ı·Ö¡£»ı·Ö·¶Î§ÓÉ beginValue ºÍ endValue È·¶¨
 	 * @throws Exception
 	 */
 	public double integral(String expression, String beginValue,
@@ -587,12 +587,12 @@ public class Eval implements IEval {
 	}
 
 	/**
-	 * å°†ç§‘å­¦è®¡æ•°è½¬æ¢ä¸ºæ™®é€šè®¡æ•°
+	 * ½«¿ÆÑ§¼ÆÊı×ª»»ÎªÆÕÍ¨¼ÆÊı
 	 * 
-	 * @author åŒ—å¤§é’é¸Ÿ--æœæ°¸è€€
+	 * @author ±±´óÇàÄñ--¶ÅÓÀÒ«
 	 * @param scientificNumber
-	 *            ç§‘å­¦è®¡æ•°
-	 * @return æ™®é€šè®¡æ•°
+	 *            ¿ÆÑ§¼ÆÊı
+	 * @return ÆÕÍ¨¼ÆÊı
 	 * @throws Exception
 	 */
 	public String scientificExpressionToNormal(String scientificNumber) {
@@ -602,7 +602,7 @@ public class Eval implements IEval {
 		int endLocation = -1;
 		String[] temp = new String[2];
 
-		// è´Ÿ
+		// ¸º
 		while ((currentLocationOfE = result.indexOf("e-")) >= 0) {
 			int i = currentLocationOfE - 1;
 			char currentChar = result.charAt(i);
@@ -643,7 +643,7 @@ public class Eval implements IEval {
 					+ result.substring(endLocation + 1);
 		}
 
-		// æ­£
+		// Õı
 		while ((currentLocationOfE = result.indexOf("e")) >= 0) {
 			int i = currentLocationOfE - 1;
 			char currentChar = result.charAt(i);
@@ -723,7 +723,7 @@ public class Eval implements IEval {
 //			System.out.println(eval
 //					.eval2("-0.105*abs(tan(123)+sin(cos(-3*4)))"));
 //
-//			System.out.println("å¯¼æ•°ï¼š"
+//			System.out.println("µ¼Êı£º"
 //					+ eval.differentiate("pow(x,2)+pow(x,3)", "2"));
 //			System.out.println(eval.eval2("2*2+3*pow(2,2)"));
 //			System.out.println(eval.integral("pow(x,2)+sin(x)", "0", "1", 100));
@@ -732,7 +732,7 @@ public class Eval implements IEval {
 //			System.out.println(eval.eval2("pow(1,3)/3-cos(1)")
 //					- eval.eval2("pow(0,3)/3-cos(0)"));
 //			System.out.println(eval.integral("tan(pow(x,x))", "0", "1", 5000));
-//			System.out.println("è¿ç®—ç»“æœï¼š" + eval.eval2("tan(pow(1,2))"));
+//			System.out.println("ÔËËã½á¹û£º" + eval.eval2("tan(pow(1,2))"));
 //			System.out.println(eval.eval2("sin(-1*acos(0))"));
 //
 //			System.out.println(eval.integral("tan(pow(x,2))", "-3", "3", 3000));
