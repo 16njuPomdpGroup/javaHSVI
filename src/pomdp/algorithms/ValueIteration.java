@@ -217,8 +217,9 @@ public abstract class ValueIteration extends PolicyStrategy{
 		LinkedList<AlphaVector> vVectors = new LinkedList<AlphaVector>( vValueFunction.getVectors() );
 		double dMaxValue = MIN_INF, dValue = 0, dProb = 0.0, dSumProbs = 0.0;
 
+		//ΣPr(o|b,a)V(τ(b,a,o))
 		for( iObservation = 0 ; iObservation < m_cObservations ; iObservation++ ){
-			dProb = bs.probabilityOGivenA( iAction, iObservation );
+			dProb = bs.probabilityOGivenA( iAction, iObservation );//Pr(o|b,a)
 			dSumProbs += dProb;
 			if( dProb > 0.0 ){
 				dMaxValue = MIN_INF;
@@ -278,7 +279,13 @@ public abstract class ValueIteration extends PolicyStrategy{
 	public AlphaVector backup( BeliefState bs ){
 		return backup( bs, m_vValueFunction );
 	}
-		
+
+	/**
+	 * backup(V, b)
+	 * @param bs 信念状态点b
+	 * @param vValueFunction 值函数V
+	 * @return 对于信念状态点b的一个新α向量
+	 */
 	public AlphaVector backup( BeliefState bs, LinearValueFunctionApproximation vValueFunction ){
 		AlphaVector avResult = null;
 		long lTimeBefore = 0, lTimeAfter = 0;
@@ -532,7 +539,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 				int iMaxAction = -1;
 				for( int iAction : m_pPOMDP.getRelevantActions( bs ) ){
 					avCurrent = G( iAction, bs, vValueFunction );
-					dValue = avCurrent.dotProduct( bs );
+					dValue = avCurrent.dotProduct( bs );//b·α^(b,a)
 		
 					//Logger.getInstance().logln( "G: " + m_cBackups + ") backup: Action value, a = " + iAction + " v = " + dValue + " " + avCurrent );
 					
@@ -558,7 +565,8 @@ public abstract class ValueIteration extends PolicyStrategy{
 		}
 		avMax.setWitness( bs );
 		bs.addBackup();
-		
+
+		//argmax[b·α^(b,a)]
 		return avMax;
 	}
 	

@@ -57,7 +57,11 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	public String getAlgorithmName() {
 		return this.algorithmName;
 	}
-	
+
+	/**
+	 * 更新上界
+	 * @param bs 信念状态点b
+	 */
 	protected void applyH( BeliefState bs ){
 		long lTimeBefore = 0, lTimeAfter = 0;
 		
@@ -90,13 +94,27 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		return sRes;
 	}
 
+	/**
+	 * 计算excess uncertainty：excess(b, t) = width(V^(b)) - εγ^-t
+	 * @param bsCurrent 信念状态b
+	 * @param dEpsilon ε
+	 * @param dDiscount 折扣γ^t
+	 * @return excess uncertainty
+	 */
 	protected double excess( BeliefState bsCurrent, double dEpsilon, double dDiscount ){
 		return width( bsCurrent ) - ( dEpsilon / dDiscount );
 	}
-	
+
+	/**
+	 * width(V^(b)) = V上界(b) - V下界(b)
+	 * @param bsCurrent 信念状态b
+	 * @return width(V^(b))
+	 */
 	protected double width( BeliefState bsCurrent ){
 		double dUpperValue = 0.0, dLowerValue = 0.0, dWidth = 0.0;
+		//V上界(b)
 		dUpperValue = m_vfUpperBound.valueAt( bsCurrent );
+		//V下界(b)
 		dLowerValue = valueAt( bsCurrent );
 		dWidth = dUpperValue - dLowerValue;	
 		
@@ -119,38 +137,38 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		BeliefState bsInitial = m_pPOMDP.getBeliefStateFactory().getInitialBeliefState();
 		// 初始信念点宽度
 		double dInitialWidth = width( bsInitial );
-		
+
 		// 遍历计数器 / 最大explore深度
 		int iIteration = 0, iMaxDepth = 0;
-		
+
 		// 时间变量
 		long lStartTime = System.currentTimeMillis(), lCurrentTime = 0;
-		
+
 		// 运行环境
 		Runtime rtRuntime = Runtime.getRuntime();
-		
+
 		// 控制循环终止的变量
 		boolean bDone = false;
-		
+
 		// 记录迭代中计算的ADR
 		Pair<Double, Double> pComputedADRs = new Pair<Double, Double>();
-		
+
 		//观测到的信念点
 		Vector<BeliefState> vObservedBeliefStates = new Vector<BeliefState>();
 		int cUpperBoundPoints = 0, cNoChange = 0;
 		String sMsg = "";
-		
+
 		m_cElapsedExecutionTime = 0;
 		m_cCPUExecutionTime = 0;
-		
+
 		//计算时间
 		long lCPUTimeBefore = 0, lCPUTimeAfter = 0, lCPUTimeTotal = 0;
-		
+
 		int cValueFunctionChanges = 0;
-		
+
 		//最大执行时间，默认设置为10分钟
 		long maxExecutionTime = m_maxExecutionTime;//1000*60*10;
-		
+
 		Logger.getInstance().logln( "Begin " + getName() + ", Initial width = " + dInitialWidth );
 		
 		// 循环主体
@@ -289,7 +307,8 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 
 	// 更新bs点的上下界
-	protected void updateBounds( BeliefState bsCurrent ){		
+	protected void updateBounds( BeliefState bsCurrent ){
+		//更新下界
 		AlphaVector avNext = backup( bsCurrent );
 		AlphaVector avCurrent = m_vValueFunction.getMaxAlpha( bsCurrent );
 		double dCurrentValue = valueAt( bsCurrent );
@@ -297,10 +316,18 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		if( dNewValue > dCurrentValue ){
 			m_vValueFunction.addPrunePointwiseDominated( avNext );
 		}
+		//更新上界
 		applyH( bsCurrent );
 	}
 
-	
+
+	/**
+	 * 获取下一个信念点τ(b, a^*, o^*)
+	 * @param bsCurrent b
+	 * @param dEpsilon ε
+	 * @param dDiscount γ^(t+1)
+	 * @return 下一个信念点
+	 */
 	// explore获取下一个信念点
 	protected BeliefState getNextBeliefState( BeliefState bsCurrent, double dEpsilon, double dDiscount ){
 		//获取最优的action
@@ -315,7 +342,16 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		
 		return bsCurrent.nextBeliefState( iAction, iObservation );		
 	}
-	
+
+	/**
+	 * explore(b, ε, t)
+	 * @param bsCurrent 信念状态b
+	 * @param dEpsilon ε
+	 * @param iTime 该函数的调用次数
+	 * @param dDiscount γ^(t+1)
+	 * @param vObservedBeliefStates 已经访问过的信念状态点
+	 * @return 在信念状态生成树中探索的深度t
+	 */
 	//explore过程
 	protected int explore( BeliefState bsCurrent, double dEpsilon, int iTime, double dDiscount, Vector<BeliefState> vObservedBeliefStates ){
 		//初始化各种变量
@@ -373,6 +409,14 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		return iMaxDepth;
 	}
 
+	/**
+	 * 选择观察o^*
+	 * @param bsCurrent 信念状态点b
+	 * @param iAction 动作a^*
+	 * @param dEpsilon ε
+	 * @param dDiscount γ^t
+	 * @return 所选观察o^*的下标
+	 */
 	// 获取最优的观测
 	protected int getExplorationObservation( BeliefState bsCurrent, int iAction, 
 			double dEpsilon, double dDiscount ){
@@ -381,20 +425,31 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		BeliefState bsNext = null;
 		
 		for( iObservation = 0 ; iObservation < m_cObservations ; iObservation++ ){
+			//Pr(o|b,a^*)
 			dProb = bsCurrent.probabilityOGivenA( iAction, iObservation );
 			if( dProb > 0 ){
+				//τ(b, a^*, o) 即b'
 				bsNext = bsCurrent.nextBeliefState( iAction, iObservation );
+				//excess(τ(b, a^*, o), t+1) 这里的dDiscount为γ^(t+1)
 				dExcess = excess( bsNext, dEpsilon, dDiscount );
-				dValue = dProb * dExcess;  
+				//Pr(o|b,a^*) * excess(τ(b, a^*, o), t+1)
+				dValue = dProb * dExcess;
+				// o* = argmax[ Pr(o|b,a^*) * excess(τ(b, a^*, o), t+1) ]
 				if( dValue > dMaxValue ){
 					dMaxValue = dValue;
 					iMaxObservation = iObservation;
 				}
 			}
 		}
+		// o* = argmax[ Pr(o|b,a^*) * excess(τ(b, a^*, o), t+1) ]
 		return iMaxObservation;
 	}
 
+	/**
+	 * 选择动作a^*
+	 * @param bsCurrent 信念状态点b
+	 * @return 所选动作a^*的下标
+	 */
 	protected int getExplorationAction( BeliefState bsCurrent ){
 		/*原始HSVI算法，根据上界取action*/
 //		if (algorithmName == null) {

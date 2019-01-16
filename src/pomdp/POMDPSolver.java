@@ -48,7 +48,7 @@ public class POMDPSolver {
 //		String sModelName = "4x3.95";
 		//String sModelName = "tagAvoid";
 		//String sModelName = "tiger-grid";
-		String sMethodName = "HSVI_Tri";
+		String sMethodName = "HSVI";
 		long maxExecutionTime = 1000*60*10;
 		int maxIteration = 100;
 						
@@ -80,7 +80,7 @@ public class POMDPSolver {
 		try
 		{
 			String sOutputDir = "logs/exp_logs";
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HH:mm");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HH_mm");
 			
 			String sFileName = sModelName + "_" + sMethodName + "_" + sdf.format(new Date())+".txt";
 			Logger.getInstance().setOutputStream(sOutputDir, sFileName);
@@ -147,17 +147,20 @@ public class POMDPSolver {
 			System.exit( 0 );
 		}
 
+        /*
+        应该是记录随机策略下的结果
+         */
 		//pomdp.computeAverageDiscountedReward(2,100,new RandomWalkPolicy(pomdp.getActionCount()));
-		
-		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HH:mm");
-			String sFileName = sModelName + "_" + sMethodName + "_" + sdf.format(new Date())+".txt";
-//			Logger.getInstance().setOutputStream( pomdp.getName() + "_" + sMethodName + ".txt" );
-			Logger.getInstance().setOutputStream(sFileName);
-		}
-		catch( Exception e ){
-			System.err.println( e );
-		}
+
+//		try{
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HH:mm");
+//			String sFileName = sModelName + "_" + sMethodName + "_" + sdf.format(new Date())+".txt";
+////			Logger.getInstance().setOutputStream( pomdp.getName() + "_" + sMethodName + ".txt" );
+//			Logger.getInstance().setOutputStream(sFileName);
+//		}
+//		catch( Exception e ){
+//			System.err.println( e );
+//		}
 
 		/* special exception for QMDP */
 		if( sMethodName.equals( "QMDP" ) ){
@@ -172,17 +175,22 @@ public class POMDPSolver {
 		//TODO 做了blind policy，获得PointBasedValueIteration
 		ValueIteration viAlgorithm = AlgorithmsFactory.getAlgorithm( sMethodName, pomdp );
 		viAlgorithm.setM_maxExecutionTime(maxExecutionTime);
-		
+
+		/*
+		从现在开始才执行值迭代
+		 */
 		int cMaxIterations = maxIteration;
 		try{
 			/* run POMDP solver */
+            /*
+            执行值迭代，获得值函数
+             */
 			viAlgorithm.valueIteration( cMaxIterations, ExecutionProperties.getEpsilon(), dTargetADR, maxRunningTime, numEvaluations);
 			
 			/* compute the averaged return */
 			double dDiscountedReward = pomdp.computeAverageDiscountedReward( 2000, 150, viAlgorithm );
 			Logger.getInstance().log( "POMDPSolver", 0, "main", "ADR = " + dDiscountedReward );
 		}
-
 		catch( Exception e ){
 			Logger.getInstance().logln( e );
 			e.printStackTrace();

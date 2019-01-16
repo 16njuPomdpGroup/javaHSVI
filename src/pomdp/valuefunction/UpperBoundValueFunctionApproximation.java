@@ -151,22 +151,28 @@ public class UpperBoundValueFunctionApproximation {
 		m_mBeliefStateValues.put( bs, dValue );
 	}
 
+	/**
+	 * 更新上界，将（信念状态点，上界值）加入上界中
+	 * Q^V(b,a) = R(b,a)+γΣPr(o|b,a)V(τ(b,a,o))
+	 * HV(b) = max[Q^V(b,a)]
+	 * @param bs b
+	 */
 	public void updateValue(BeliefState bs) {
-
-		
 		int iAction = 0, iObservation = 0;
 		BeliefState bsSuccessor = null;
 		double dActionValue = 0.0, dMaxValue = 0.0, dPr = 0.0, dValue = 0.0;
 		for( iAction = 0 ; iAction < m_pPOMDP.getActionCount() ; iAction++ ){
-			dActionValue = m_pPOMDP.immediateReward( bs, iAction );
+			dActionValue = m_pPOMDP.immediateReward( bs, iAction );//R(b,a)
+			//Q^V(b,a) = R(b,a)+γΣPr(o|b,a)V(τ(b,a,o))
 			for( iObservation = 0 ; iObservation < m_pPOMDP.getObservationCount() ; iObservation++ ){
-				dPr = bs.probabilityOGivenA( iAction, iObservation );
+				dPr = bs.probabilityOGivenA( iAction, iObservation );//Pr(o|b,a)
 				if( dPr > 0.0 ){
-					bsSuccessor = bs.nextBeliefState( iAction, iObservation );
-					dValue = valueAt( bsSuccessor );
+					bsSuccessor = bs.nextBeliefState( iAction, iObservation );//τ(b,a,o) 即b'
+					dValue = valueAt( bsSuccessor );//V(τ(b,a,o))
 					dActionValue += m_pPOMDP.getDiscountFactor() * dValue * dPr;
 				}
 			}
+			//max[Q^V(b,a)]
 			if( dActionValue > dMaxValue )
 				dMaxValue = dActionValue;
 		}
