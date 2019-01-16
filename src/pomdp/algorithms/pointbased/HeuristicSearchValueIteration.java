@@ -129,7 +129,21 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 			return "HSVI"+"_"+algorithmName;
 		}
 	}
-	
+
+	/**
+	 * π = HSVI(ε)
+	 * 1. 初始化上界m_vfUpperBound和下界m_vValueFunction，
+	 *    上界在HeuristicSearchValueIteration的构造函数中初始化，下界在父类ValueIteration中初始化
+	 * 2. 循环执行explore
+	 *    结束条件：循环超出指定次数 || 达到终止条件（超出时间）
+	 *    在循环中，若上界函数的点的个数超过1000 && 两次迭代之间上界函数的点的个数增长超过10%; 对上界函数进行裁剪
+	 *    下界函数的剪枝是在每次加入新向量时完成
+	 * @param cIterations 迭代次数
+	 * @param dEpsilon ε
+	 * @param dTargetValue 希望达到的回报
+	 * @param maxRunningTime 最大运行时间
+	 * @param numEvaluations （没用到）
+	 */
 	public void valueIteration(int cIterations, double dEpsilon, double dTargetValue, int maxRunningTime, int numEvaluations)
 	{
 		// 初始化各种变量
@@ -345,6 +359,10 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 
 	/**
 	 * explore(b, ε, t)
+	 * 1.深度大于200或者宽度小于阈值（epsilon/pow(gama,t))返回
+	 * 2.获得下一个信念点，其中包含了选择动作和选择观察
+	 * 3.调用explore(b',ε,t+1)
+	 * 4.在信念状态点b上 更新 上下界值函数
 	 * @param bsCurrent 信念状态b
 	 * @param dEpsilon ε
 	 * @param iTime 该函数的调用次数
