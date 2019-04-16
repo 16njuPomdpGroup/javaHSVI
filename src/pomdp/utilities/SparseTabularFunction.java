@@ -11,7 +11,7 @@ public class SparseTabularFunction extends Function {
 	protected HashMap m_mSingleParameterValues;
 	protected HashMap[] m_mDualParameterValues;
 	/*
-	 * ÕâÊÇ´æ·ÅTransition FunctionµÄ 
+	 * è¿™æ˜¯å­˜æ”¾Transition Functionçš„ 
 	 * m_mTripleParametermValues[iStartState][iActionIdx].put(iEndState, dValue)
 	 */
 	protected HashMap<Integer,Double>[][] m_mTripleParametermValues;
@@ -83,7 +83,7 @@ public class SparseTabularFunction extends Function {
 	}
 	
 	/**
-	 * ÓÃÓÚTransition FunctionµÄÒ»¸ö×ª»»µÄÉèÖÃ ²ÎÊı£ºiStartState, iActionIdx, iEndState, dValue)
+	 * ç”¨äºTransition Functionçš„ä¸€ä¸ªè½¬æ¢çš„è®¾ç½® å‚æ•°ï¼šiStartState, iActionIdx, iEndState, dValue)
 	 */
 	public void setValue( int arg1, int arg2, int arg3, double dValue ){
 		

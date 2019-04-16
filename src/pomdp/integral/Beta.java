@@ -8,8 +8,8 @@ public class Beta extends Eval {
 	 * 
 	 * @param a 
 	 * @param b
-	 * @param beginValue 积分下限
-	 * @param endValue 积分上限
+	 * @param beginValue 绉垎涓嬮檺
+	 * @param endValue 绉垎涓婇檺
 	 * @return
 	 */
 	public double calculateBeta(int a, int b, double beginValue,double endValue ){
@@ -26,7 +26,7 @@ public class Beta extends Eval {
 	}
 	
 	/**
-	 * 计算伽马函数
+	 * 璁＄畻浼介┈鍑芥暟
 	 * @param n
 	 * @return
 	 */

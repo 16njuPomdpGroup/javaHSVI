@@ -159,7 +159,7 @@ public class GenericValueIteration extends ValueIteration {
 					if (totalTimeInSeconds > currentTarget){
 						while ((currentTarget < totalTimeInSeconds) && (currentTarget <= maxRunningTime))
 						{
-							//¼ÆËãÏßĞÔ²åÖµ
+							//è®¡ç®—çº¿æ€§æ’å€¼
 							double dInterpolatedValue = computeLinearInterpolation( totalTimeInSeconds, previousTotalTime, dDiscountedReward, dPreviousReward, currentTarget );
 							ps.println(currentTarget + "\t" + previousTotalTime + "\t" + dInterpolatedValue + "\t" + dPreviousReward);
 							

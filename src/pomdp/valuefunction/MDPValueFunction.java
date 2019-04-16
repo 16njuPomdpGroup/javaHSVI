@@ -204,7 +204,7 @@ public class MDPValueFunction extends PolicyStrategy {
 		m_vValueFunction.clear();
 		double dQValue = 0.0, dMaxQValue = 0.0;
 		/*
-		�������״̬����ֵ��һ��������״̬bsUniform
+		获得所有状态概率值都一样的信念状态bsUniform
 		 */
 		BeliefState bsUniform = m_pPOMDP.getBeliefStateFactory().getUniformBeliefState();
 		

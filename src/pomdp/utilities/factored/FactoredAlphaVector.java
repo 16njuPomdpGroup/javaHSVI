@@ -1,14 +1,11 @@
 package pomdp.utilities.factored;
 
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Vector;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import com.sun.org.apache.bcel.internal.generic.ISTORE;
 
 import pomdp.environments.FactoredPOMDP;
 import pomdp.environments.POMDP;
@@ -17,8 +14,6 @@ import pomdp.utilities.BeliefState;
 import pomdp.utilities.ExecutionProperties;
 import pomdp.utilities.JProf;
 import pomdp.utilities.Logger;
-import pomdp.utilities.TabularAlphaVector;
-import pomdp.utilities.concurrent.Lock;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import pomdp.utilities.factored.AlgebraicDecisionDiagram.VariableTranslator;
 

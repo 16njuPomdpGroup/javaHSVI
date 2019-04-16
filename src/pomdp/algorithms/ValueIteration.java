@@ -51,7 +51,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 	protected final static double MIN_INF = Double.NEGATIVE_INFINITY;
 	protected final static double MAX_INF = Double.POSITIVE_INFINITY;
 	protected boolean m_bConverged;
-	//¦Å 0.001
+	//Îµ 0.001
 	protected double m_dEpsilon = ExecutionProperties.getEpsilon();
 	protected long m_cElapsedExecutionTime;
 	protected long m_cCPUExecutionTime;
@@ -67,7 +67,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 	protected static int g_cTrials = 500;
 	protected static int g_cStepsPerTrial = 100;
 	
-	//Ã»ÓĞÓÃµ½µÄ±äÁ¿¡£Ã»ÓĞµØ·½À´ÉèÖÃËü
+	//æ²¡æœ‰ç”¨åˆ°çš„å˜é‡ã€‚æ²¡æœ‰åœ°æ–¹æ¥è®¾ç½®å®ƒ
 	protected static String m_sBlindPolicyValueFunctionFileName = null;
 	
 	protected RandomGenerator m_rndGenerator;	
@@ -99,10 +99,10 @@ public abstract class ValueIteration extends PolicyStrategy{
 		
 		m_bTerminate = false;
 		
-		//½öËæ»úÊıÉú³ÉÆ÷
+		//ä»…éšæœºæ•°ç”Ÿæˆå™¨
 		m_rndGenerator = new RandomGenerator( "ValueIteration" );
 		
-		//m_dEpsilon: ¦Å 0.001
+		//m_dEpsilon: Îµ 0.001
 		m_vValueFunction = new LinearValueFunctionApproximation( m_dEpsilon, true );
 		m_vfMDP = pomdp.getMDPValueFunction();
 
@@ -121,7 +121,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 		m_rndGenerator.init( iSeed );	
 	}
 	
-	//TODOÃ¿´ÎÊÔÑéµÄ²½Êı£¿
+	//TODOæ¯æ¬¡è¯•éªŒçš„æ­¥æ•°ï¼Ÿ
 	protected void computeStepsPerTrial(){
 		int cSteps = 0;
 		double dTailSum = 0.0;
@@ -217,7 +217,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 		LinkedList<AlphaVector> vVectors = new LinkedList<AlphaVector>( vValueFunction.getVectors() );
 		double dMaxValue = MIN_INF, dValue = 0, dProb = 0.0, dSumProbs = 0.0;
 
-		//¦²Pr(o|b,a)V(¦Ó(b,a,o))
+		//Î£Pr(o|b,a)V(Ï„(b,a,o))
 		for( iObservation = 0 ; iObservation < m_cObservations ; iObservation++ ){
 			dProb = bs.probabilityOGivenA( iAction, iObservation );//Pr(o|b,a)
 			dSumProbs += dProb;
@@ -282,9 +282,9 @@ public abstract class ValueIteration extends PolicyStrategy{
 
 	/**
 	 * backup(V, b)
-	 * @param bs ĞÅÄî×´Ì¬µãb
-	 * @param vValueFunction Öµº¯ÊıV
-	 * @return ¶ÔÓÚĞÅÄî×´Ì¬µãbµÄÒ»¸öĞÂ¦ÁÏòÁ¿
+	 * @param bs ä¿¡å¿µçŠ¶æ€ç‚¹b
+	 * @param vValueFunction å€¼å‡½æ•°V
+	 * @return å¯¹äºä¿¡å¿µçŠ¶æ€ç‚¹bçš„ä¸€ä¸ªæ–°Î±å‘é‡
 	 */
 	public AlphaVector backup( BeliefState bs, LinearValueFunctionApproximation vValueFunction ){
 		AlphaVector avResult = null;
@@ -315,7 +315,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 		AlphaVector[] aNext = null, aBest = null;
 		//Logger.getInstance().logln( m_cBackups + ") Backup for belief point " + bs );
 		
-		//Ã¿¸öaction×îÓÅ¦Á
+		//æ¯ä¸ªactionæœ€ä¼˜Î±
 		FindMaxAlphas[] aFinders = new FindMaxAlphas[m_cActions];
 		if( bMultiThread ){
 			//Thread[] aThreads = new Thread[m_cActions];
@@ -329,23 +329,23 @@ public abstract class ValueIteration extends PolicyStrategy{
 				ThreadPool.getInstance().waitForTask( aFinders[iAction] );
 			}
 		}
-		//¿ÉÄÜÒòÎªÏàÍ¬£¬¶øÓĞ¶à¸ö£¬ËùÓĞÅª¸övector
-		//×î¼ÑactionµÄ£¬Ã¿¸öoµÄ£¬µü´úÒ»²½ºóµÄ£¬×îÓÅ¦Á
+		//å¯èƒ½å› ä¸ºç›¸åŒï¼Œè€Œæœ‰å¤šä¸ªï¼Œæ‰€æœ‰å¼„ä¸ªvector
+		//æœ€ä½³actionçš„ï¼Œæ¯ä¸ªoçš„ï¼Œè¿­ä»£ä¸€æ­¥åçš„ï¼Œæœ€ä¼˜Î±
 		Vector<AlphaVector[]> vWinners = new Vector<AlphaVector[]>();
-		//´ËbµÄ£¬×îÓÅaction
+		//æ­¤bçš„ï¼Œæœ€ä¼˜action
 		Vector<Integer> vWinnersActions = new Vector<Integer>();
-		//µü´úaction
+		//è¿­ä»£action
 		for( iAction = 0 ; iAction < m_cActions ; iAction++ ){
-			//b¡¢a¡¢o¹Ì¶¨Ê±£¬Ã¿¸öoµü´úÒ»²½ºó¶ÔÓ¦µÄ×î´ó¦Á
-			//Ê½F6
+			//bã€aã€oå›ºå®šæ—¶ï¼Œæ¯ä¸ªoè¿­ä»£ä¸€æ­¥åå¯¹åº”çš„æœ€å¤§Î±
+			//å¼F6
 			aNext = new AlphaVector[m_cObservations];
 			if( bMultiThread ){
 				dValue = aFinders[iAction].getValue();
 			}
 			else{
-				//aNext´æ·ÅÓÉb¡¢a¡¢V£¬ÕÒµ½Ã¿¸öo¶ÔÓ¦µÄ×î´ó¦Á
-				//ºÍ±ê×¼backupÊ½×Ó²»Ò»Ñù£¡£¡£¡
-				//·µ»ØÖµÎªF10£¬ÀàËÆb¡¢a¹Ì¶¨Ê±£¬µü´úÒ»²½ºó¼ÆËãµÃµ½µÄ×î´óvalue£¬ÔÚÃ¿¸öoµü´úÒ»²½ºó¶ÔÓ¦µÄ×î´ó¦ÁÌõ¼şÏÂ
+				//aNextå­˜æ”¾ç”±bã€aã€Vï¼Œæ‰¾åˆ°æ¯ä¸ªoå¯¹åº”çš„æœ€å¤§Î±
+				//å’Œæ ‡å‡†backupå¼å­ä¸ä¸€æ ·ï¼ï¼ï¼
+				//è¿”å›å€¼ä¸ºF10ï¼Œç±»ä¼¼bã€aå›ºå®šæ—¶ï¼Œè¿­ä»£ä¸€æ­¥åè®¡ç®—å¾—åˆ°çš„æœ€å¤§valueï¼Œåœ¨æ¯ä¸ªoè¿­ä»£ä¸€æ­¥åå¯¹åº”çš„æœ€å¤§Î±æ¡ä»¶ä¸‹
 				dValue = findMaxAlphas( iAction, bs, vValueFunction, aNext );
 			}
 			
@@ -361,8 +361,8 @@ public abstract class ValueIteration extends PolicyStrategy{
 					aBest = aFinders[iAction].getNextVectors();
 				}
 				else{
-					//aBest·ÅµÄÊÇ×î¼Ñaction¶ÔÓ¦µÄaNext
-					//b¡¢a¡¢o¹Ì¶¨Ê±£¬×î¼ÑactionÏÂ£¬Ã¿¸öoµü´úÒ»²½ºó¶ÔÓ¦µÄ×î´ó¦Á
+					//aBestæ”¾çš„æ˜¯æœ€ä½³actionå¯¹åº”çš„aNext
+					//bã€aã€oå›ºå®šæ—¶ï¼Œæœ€ä½³actionä¸‹ï¼Œæ¯ä¸ªoè¿­ä»£ä¸€æ­¥åå¯¹åº”çš„æœ€å¤§Î±
 					aBest = aNext;
 				}
 				iMaxAction = iAction;
@@ -371,11 +371,11 @@ public abstract class ValueIteration extends PolicyStrategy{
 			}
 		}
 		
-		//Èç¹ûÓĞ¶à¸ö×î¼Ñaction£¬Ëæ»úÈ¡Ò»¸ö
+		//å¦‚æœæœ‰å¤šä¸ªæœ€ä½³actionï¼Œéšæœºå–ä¸€ä¸ª
 		int idx = m_rndGenerator.nextInt( vWinners.size() );
 		aBest = vWinners.elementAt( idx );
 		iMaxAction = vWinnersActions.elementAt( idx );
-		//¼ÆËã³ö¸üĞÂºóµÄ¦Á
+		//è®¡ç®—å‡ºæ›´æ–°åçš„Î±
 		avMax = G( iMaxAction, vValueFunction, aBest, bMultiThread );
 		avMax.setWitness( bs );
 		bs.addBackup();
@@ -386,10 +386,10 @@ public abstract class ValueIteration extends PolicyStrategy{
 	
 	//multi-thread implementation
 	/**
-	 * ¼ÆËã¸üĞÂºóµÄ¦Á£¬Ê½F12
-	 * @param iAction	×î¼Ñaction
+	 * è®¡ç®—æ›´æ–°åçš„Î±ï¼Œå¼F12
+	 * @param iAction	æœ€ä½³action
 	 * @param vValueFunction	V
-	 * @param aNext	Ê½F6£¬b¡¢a¡¢o¹Ì¶¨ÏÂ£¬Ã¿¸öo¶ÔÓ¦µÄ£¬µü´úÒ»²½ºóµÄ£¬×î¼Ñ¦Á
+	 * @param aNext	å¼F6ï¼Œbã€aã€oå›ºå®šä¸‹ï¼Œæ¯ä¸ªoå¯¹åº”çš„ï¼Œè¿­ä»£ä¸€æ­¥åçš„ï¼Œæœ€ä½³Î±
 	 * @param bMultiThread
 	 * @return
 	 */
@@ -413,7 +413,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 			}
 		}
 		
-		//±éÀúo£¬°Ñ¦ÁÏà¼Ó
+		//éå†oï¼ŒæŠŠÎ±ç›¸åŠ 
 		for( iObservation = 0 ; iObservation < m_cObservations ; iObservation++ ){
 			if( bMultiThread ){
 				avG = aComputeGs[iObservation].getG();
@@ -430,7 +430,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 				avSum.accumulate( avG );
 		}
 		
-		//Ôö¼ÓÁ¢¼´»Ø±¨
+		//å¢åŠ ç«‹å³å›æŠ¥
 		avResult = avSum.addReward( iAction );
 		avResult.setAction( iAction );
 
@@ -443,15 +443,15 @@ public abstract class ValueIteration extends PolicyStrategy{
 	}
 
 	/**
-	 * b¡¢a¹Ì¶¨£¬Çó×î´ó¦Á
-	 * Ê½F7
-	 * ËäÈ»ÊÇÊ½F7µÄÄ¿µÄºÍÒâË¼£¬µ«ºÍÊ½F7ÓÖ²»Í¬£º°Ñ²»Í¬oÏÂµÄ¦ÁÏà¼Ó¡¢ÕÛ¿Ûºó¼ÓR£¨a£©£¬ÕâÁ½²½Ã»ÓĞ
-	 * Ö»ÊÇ°ÑÊ½F6°´²»Í¬o´æ´¢ÔÚ aNext
+	 * bã€aå›ºå®šï¼Œæ±‚æœ€å¤§Î±
+	 * å¼F7
+	 * è™½ç„¶æ˜¯å¼F7çš„ç›®çš„å’Œæ„æ€ï¼Œä½†å’Œå¼F7åˆä¸åŒï¼šæŠŠä¸åŒoä¸‹çš„Î±ç›¸åŠ ã€æŠ˜æ‰£ååŠ Rï¼ˆaï¼‰ï¼Œè¿™ä¸¤æ­¥æ²¡æœ‰
+	 * åªæ˜¯æŠŠå¼F6æŒ‰ä¸åŒoå­˜å‚¨åœ¨ aNext
 	 * @param iAction
 	 * @param bs
 	 * @param vValueFunction
-	 * @param aNext	//b¡¢a¡¢o¹Ì¶¨Ê±£¬Ã¿¸öoµü´úÒ»²½ºó¶ÔÓ¦µÄ×î´ó¦Á
-	 * @return ÀàËÆF10£¬ÀàËÆb¡¢a¹Ì¶¨ÏÂµÄbackup²Ù×÷£¬¼´ÕÒ×î´ó¦ÁÏÂµÄ¸÷ÖÖ¶«Î÷
+	 * @param aNext	//bã€aã€oå›ºå®šæ—¶ï¼Œæ¯ä¸ªoè¿­ä»£ä¸€æ­¥åå¯¹åº”çš„æœ€å¤§Î±
+	 * @return ç±»ä¼¼F10ï¼Œç±»ä¼¼bã€aå›ºå®šä¸‹çš„backupæ“ä½œï¼Œå³æ‰¾æœ€å¤§Î±ä¸‹çš„å„ç§ä¸œè¥¿
 	 */
 	public double findMaxAlphas( int iAction, BeliefState bs, LinearValueFunctionApproximation vValueFunction, AlphaVector[] aNext ) {
 		AlphaVector avAlpha = null;
@@ -462,38 +462,38 @@ public abstract class ValueIteration extends PolicyStrategy{
 		boolean bCache = m_pPOMDP.getBeliefStateFactory().isCachingBeliefStates();
 		//m_pPOMDP.getBeliefStateFactory().cacheBeliefStates( false );
 		
-		//b¡¢a£¬±éÀúo¡¢V£¬Çóµü´úÒ»²½£¬»ñµÃµÄ×î´óÆÚÍûvalue£¬²»°üº¬µ±Ç°actionµÄ»Ø±¨
-		//Ê½F4
+		//bã€aï¼Œéå†oã€Vï¼Œæ±‚è¿­ä»£ä¸€æ­¥ï¼Œè·å¾—çš„æœ€å¤§æœŸæœ›valueï¼Œä¸åŒ…å«å½“å‰actionçš„å›æŠ¥
+		//å¼F4
 		for( iObservation = 0 ; iObservation < m_cObservations ; iObservation++ ){
-			//b¡¢a¡¢oµÄ¸ÅÂÊ
-			//Ê½F5
+			//bã€aã€oçš„æ¦‚ç‡
+			//å¼F5
 			dProb = bs.probabilityOGivenA( iAction, iObservation );
 			
 			dSumProbs += dProb;
 			if( dProb > 0.0 ){
-				//b¡¢a¡¢oµÄÏÂÒ»¸öb
+				//bã€aã€oçš„ä¸‹ä¸€ä¸ªb
 				bsSuccessor = bs.nextBeliefState( iAction, iObservation );
-				//ÏÂÒ»¸öbµÄ×î´ó¦Á
+				//ä¸‹ä¸€ä¸ªbçš„æœ€å¤§Î±
 				avAlpha = vValueFunction.getMaxAlpha( bsSuccessor );
-				//×î´ó¦Á¶ÔÓ¦µÄvalue
-				//Ê½F8
+				//æœ€å¤§Î±å¯¹åº”çš„value
+				//å¼F8
 				dValue = avAlpha.dotProduct( bsSuccessor );
-				//¼ÓÈ¨ºÍ
-				//Ê½F9£¡£¡£¡£¡£¡¹ÖÒìÑ½£¬ÎªÊ²Ã´Òª³Ë¸ÅÂÊ
+				//åŠ æƒå’Œ
+				//å¼F9ï¼ï¼ï¼ï¼ï¼æ€ªå¼‚å‘€ï¼Œä¸ºä»€ä¹ˆè¦ä¹˜æ¦‚ç‡
 				dSumValues += dValue * dProb;
 			}
 			else{
 				avAlpha = vValueFunction.getLast();
 			}
 			
-			//b¡¢a¡¢o¹Ì¶¨Ê±£¬Ã¿¸öoµü´úÒ»²½ºó¶ÔÓ¦µÄ×î´ó¦Á
-			//Ê½F6
+			//bã€aã€oå›ºå®šæ—¶ï¼Œæ¯ä¸ªoè¿­ä»£ä¸€æ­¥åå¯¹åº”çš„æœ€å¤§Î±
+			//å¼F6
 			aNext[iObservation] = avAlpha;
 			
 		}
 		
-		//Ê½F10
-		//ºÍ±ê×¼backupÖĞµÄÊ½×Ó²»Ò»Ñù
+		//å¼F10
+		//å’Œæ ‡å‡†backupä¸­çš„å¼å­ä¸ä¸€æ ·
 		dSumValues /= dSumProbs; //in case due to rounding there is an error and probs do not exactly sum to 1
 		dSumValues *= m_pPOMDP.getDiscountFactor();
 		dSumValues += m_pPOMDP.immediateReward( bs, iAction ); 
@@ -539,7 +539,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 				int iMaxAction = -1;
 				for( int iAction : m_pPOMDP.getRelevantActions( bs ) ){
 					avCurrent = G( iAction, bs, vValueFunction );
-					dValue = avCurrent.dotProduct( bs );//b¡¤¦Á^(b,a)
+					dValue = avCurrent.dotProduct( bs );//bÂ·Î±^(b,a)
 		
 					//Logger.getInstance().logln( "G: " + m_cBackups + ") backup: Action value, a = " + iAction + " v = " + dValue + " " + avCurrent );
 					
@@ -566,7 +566,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 		avMax.setWitness( bs );
 		bs.addBackup();
 
-		//argmax[b¡¤¦Á^(b,a)]
+		//argmax[bÂ·Î±^(b,a)]
 		return avMax;
 	}
 	
@@ -621,7 +621,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 		initValueFunctionToMin( m_vValueFunction );	
 	}
 	
-	//°ÑÖµº¯Êı³õÊ¼»¯Îª×îĞ¡Öµ
+	//æŠŠå€¼å‡½æ•°åˆå§‹åŒ–ä¸ºæœ€å°å€¼
 	protected void initValueFunctionToMin( LinearValueFunctionApproximation vValueFunction ){
 		Logger.getInstance().logln( "Init value function to min" );
 		double dMinValue = getMaxMinR();
@@ -645,7 +645,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 	}
 	
 
-	//Ê¹ÓÃblind²ßÂÔ£¬³õÊ¼»¯Öµº¯ÊıV LinearValueFunctionApproximation
+	//ä½¿ç”¨blindç­–ç•¥ï¼Œåˆå§‹åŒ–å€¼å‡½æ•°V LinearValueFunctionApproximation
 	protected void initValueFunctionUsingBlindPolicy(){
 		m_vValueFunction.clear();
 		
@@ -657,10 +657,10 @@ public abstract class ValueIteration extends PolicyStrategy{
 		Entry entry = null;
 		Iterator itNonZero = null;
 		LinearValueFunctionApproximation vMin = new LinearValueFunctionApproximation( m_dEpsilon, false );
-		//³õÊ¼»¯Îª×îĞ¡Öµ
+		//åˆå§‹åŒ–ä¸ºæœ€å°å€¼
 		initValueFunctionToMin( vMin );
 		
-		//»ñµÃ×´Ì¬¸ÅÂÊ¾ùÒ»ÖÂµÄb
+		//è·å¾—çŠ¶æ€æ¦‚ç‡å‡ä¸€è‡´çš„b
 		BeliefState bsUniform = m_pPOMDP.getBeliefStateFactory().getUniformBeliefState();
 		
 		if( m_sBlindPolicyValueFunctionFileName != null ){
@@ -679,43 +679,43 @@ public abstract class ValueIteration extends PolicyStrategy{
 		Logger.getInstance().logln( "Begin blind policy computation  " + m_cActions + " actions" );
 		
 		
-		//MDPÖµµü´úÖÁÊÕÁ²£¡£¡£¡
-		//±éÀúaction
-		//¼ÆËãF3£¬¶ÔÃ¿¸östateµÄÖµ£¬È¡×î´óµÄ£¬²¢¼ÇÂ¼¶ÔÓ¦µÄaction
+		//MDPå€¼è¿­ä»£è‡³æ”¶æ•›ï¼ï¼ï¼
+		//éå†action
+		//è®¡ç®—F3ï¼Œå¯¹æ¯ä¸ªstateçš„å€¼ï¼Œå–æœ€å¤§çš„ï¼Œå¹¶è®°å½•å¯¹åº”çš„action
 		for( iAction = 0 ; iAction < m_cActions ; iAction++ ){
-			//¼ÆËãF2£¬MDP£¬Ä³actionÏÂ£¬¶ÔËùÓĞstate½øĞĞÖµµü´úÖÁÊÕÁ²
-			av = vMin.elementAt( 0 ); //È¡³öµÚÒ»¸ö¦Á£¬ÆäÊµ¾ÍÖ»ÓĞÒ»¸ö¦Á
+			//è®¡ç®—F2ï¼ŒMDPï¼ŒæŸactionä¸‹ï¼Œå¯¹æ‰€æœ‰stateè¿›è¡Œå€¼è¿­ä»£è‡³æ”¶æ•›
+			av = vMin.elementAt( 0 ); //å–å‡ºç¬¬ä¸€ä¸ªÎ±ï¼Œå…¶å®å°±åªæœ‰ä¸€ä¸ªÎ±
 			//av = m_pPOMDP.newAlphaVector();
 			//Logger.getInstance().logln( "Initial " + av );
 			iIteration = 0;
 			dMaxResidual = MAX_INF;
-			//³ÖĞøµü´úÖÁÊÕÁ²£¬¼´µü´úÇ°ºó×î´óvalueµÄ²îÖµ£¬<=0.1
+			//æŒç»­è¿­ä»£è‡³æ”¶æ•›ï¼Œå³è¿­ä»£å‰åæœ€å¤§valueçš„å·®å€¼ï¼Œ<=0.1
 			while( dMaxResidual > 0.1 ){
 				avNext = av.newAlphaVector();
 				dMaxDiff = 0.0;
-				//±éÀústate
-				//MDP£¬¶ÔËùÓĞ×´Ì¬½øĞĞÒ»²½Öµµü´ú£¬È»ºó°Ñµü´úºóÖµ£¬´æÈëĞÂ¦Á avNext
+				//éå†state
+				//MDPï¼Œå¯¹æ‰€æœ‰çŠ¶æ€è¿›è¡Œä¸€æ­¥å€¼è¿­ä»£ï¼Œç„¶åæŠŠè¿­ä»£åå€¼ï¼Œå­˜å…¥æ–°Î± avNext
 				//state 1
 				for( iState = 0 ; iState < m_cStates ; iState++ ){
-					//-------¼ÆËãF1£¨S£©£¬MDPÖĞÒ»²½Öµµü´ú
+					//-------è®¡ç®—F1ï¼ˆSï¼‰ï¼ŒMDPä¸­ä¸€æ­¥å€¼è¿­ä»£
 					dSum = 0.0;
-					//»ñµÃÒÔÕâ¸östate action¿ªÊ¼µÄ×ª»»
+					//è·å¾—ä»¥è¿™ä¸ªstate actionå¼€å§‹çš„è½¬æ¢
 					//state2
 					itNonZero = m_pPOMDP.getNonZeroTransitions( iState, iAction );
 					while( itNonZero.hasNext() ){
 						entry = (Entry)itNonZero.next();
 						iEndState = ((Number) entry.getKey()).intValue();
-						dTr = ((Number)entry.getValue()).doubleValue();//×ª»»µÄ¸ÅÂÊÖµ
-						dValue = av.valueAt( iEndState );//¦ÁÔÚÕâ¸ö×´Ì¬µÄµÄvalue
+						dTr = ((Number)entry.getValue()).doubleValue();//è½¬æ¢çš„æ¦‚ç‡å€¼
+						dValue = av.valueAt( iEndState );//Î±åœ¨è¿™ä¸ªçŠ¶æ€çš„çš„value
 						dSum += dTr * dValue;//
 					}
 					dReward = m_pPOMDP.R( iState, iAction );
 					dNewValue = dReward + dSum * m_dGamma;
 					//-------
-					//°ÑMDP¶ÔÒ»¸östateµÄÒ»²½µü´úºóÖµ´æÈëĞÂµÄ¦Á
+					//æŠŠMDPå¯¹ä¸€ä¸ªstateçš„ä¸€æ­¥è¿­ä»£åå€¼å­˜å…¥æ–°çš„Î±
 					avNext.setValue( iState, dNewValue );
 					
-					//¸üĞÂÒ»²½µü´úºó£¬²îÖµ×î´óµÄstate
+					//æ›´æ–°ä¸€æ­¥è¿­ä»£åï¼Œå·®å€¼æœ€å¤§çš„state
 					dDiff = Math.abs( dNewValue - av.valueAt( iState ) );
 					if( dDiff > dMaxDiff ){
 						iMaxDiffState = iState;
@@ -725,7 +725,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 				
 				dMaxResidual = dMaxDiff;
 				avNext.finalizeValues();
-				//ĞÂ¦ÁÌæ´úÀÏ¦Á
+				//æ–°Î±æ›¿ä»£è€Î±
 				av = avNext;
 				
 				iIteration++;
@@ -735,8 +735,8 @@ public abstract class ValueIteration extends PolicyStrategy{
 			}
 						
 			av.setWitness( bsUniform );
-			av.setAction( iAction );//ÉèÖÃ¶ÔÓ¦µÄaction
-			m_vValueFunction.addPrunePointwiseDominated( av );//ÕâÀï»áÈ¡³öÖµ×î´óµÄ¦Á
+			av.setAction( iAction );//è®¾ç½®å¯¹åº”çš„action
+			m_vValueFunction.addPrunePointwiseDominated( av );//è¿™é‡Œä¼šå–å‡ºå€¼æœ€å¤§çš„Î±
 			Logger.getInstance().logln( "Done action " + iAction +
 					" after " + iIteration + " iterations |V| = " + m_vValueFunction.size() );
 		}		
@@ -1123,7 +1123,7 @@ public abstract class ValueIteration extends PolicyStrategy{
 	
 	/**
 	 * TODO
-	 * ¼ì²éÆ½¾ùÕÛ¿Û»Ø±¨ÊÇ·ñÊÕÁ²
+	 * æ£€æŸ¥å¹³å‡æŠ˜æ‰£å›æŠ¥æ˜¯å¦æ”¶æ•›
 	 * @param pomdp
 	 * @param dTargetADR
 	 * @param pComputedADRs

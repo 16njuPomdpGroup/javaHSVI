@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="POMDPSolvers" options="--add-modules=java.corba --add-exports=java.xml/com.sun.org.apache.bcel.internal.generic=ALL-UNNAMED --add-exports=java.corba/com.sun.corba.se.spi.orb=ALL-UNNAMED --add-exports=java.desktop/com.sun.swing.internal.plaf.basic.resources=ALL-UNNAMED --add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED" />
-    </option>
-  </component>
-</project>

@@ -38,27 +38,27 @@ public class PointBasedValueIteration extends ValueIteration {
 	}
 
 	protected BeliefStateVector<BeliefState> expandPBVI( BeliefStateVector<BeliefState> vBeliefPoints ){
-		//À©³äºóµÄB£¬Ô­ÏÈµÄBÖĞÄÚÈİÒÑ¾­ÔÚÕâÀï
+		//æ‰©å……åçš„Bï¼ŒåŸå…ˆçš„Bä¸­å†…å®¹å·²ç»åœ¨è¿™é‡Œ
 		BeliefStateVector<BeliefState> vExpanded = new BeliefStateVector<BeliefState>( vBeliefPoints );
 		Iterator it = vBeliefPoints.iterator();
-		//ÁÙÊ±±äÁ¿£¬´æ·Åµ±Ç°ÓÃÀ´À©³äµÄb
+		//ä¸´æ—¶å˜é‡ï¼Œå­˜æ”¾å½“å‰ç”¨æ¥æ‰©å……çš„b
 		BeliefState bsCurrent = null;
-		//ÁÙÊ±±äÁ¿£¬´æ·ÅµÃµ½µÄ×îÔ¶b
+		//ä¸´æ—¶å˜é‡ï¼Œå­˜æ”¾å¾—åˆ°çš„æœ€è¿œb
 		BeliefState bsNext = null;
 
-		//ÉèÖÃ²»ĞèÒª»º´æb
+		//è®¾ç½®ä¸éœ€è¦ç¼“å­˜b
 		boolean bPrevious = m_pPOMDP.getBeliefStateFactory().cacheBeliefStates( false );
-		//Ã¿´ÎÀ©³ä100¸öb
+		//æ¯æ¬¡æ‰©å……100ä¸ªb
 		while( vExpanded.size() < vBeliefPoints.size() + 100 ){
-			//ÊÇ´ÓÀ©³äºóBÖĞËæ»úÈ¡¸öb£¬¼ÆËãËüµÄ×îÔ¶ºó¼Ì£¡£¡ºÍ±ê×¼PBVIÖĞexpand²»Í¬
-			//Ò»¸öÔ­Òò£º±£Ö¤ÄÜ¹»À©³ä100¸öb
+			//æ˜¯ä»æ‰©å……åBä¸­éšæœºå–ä¸ªbï¼Œè®¡ç®—å®ƒçš„æœ€è¿œåç»§ï¼ï¼å’Œæ ‡å‡†PBVIä¸­expandä¸åŒ
+			//ä¸€ä¸ªåŸå› ï¼šä¿è¯èƒ½å¤Ÿæ‰©å……100ä¸ªb
 			bsCurrent = vExpanded.elementAt( m_rndGenerator.nextInt( vExpanded.size() ) );	
-			//¼ÆËã×îÔ¶µÄºó¼Ì
+			//è®¡ç®—æœ€è¿œçš„åç»§
 			bsNext = m_pPOMDP.getBeliefStateFactory().computeRandomFarthestSuccessor( vBeliefPoints, bsCurrent );
 			if( ( bsNext != null ) && ( !vExpanded.contains( bsNext ) ) )
 				vExpanded.add(bsCurrent, bsNext);
 		}
-		//ÉèÖÃ»ØÔ­À´µÄÖµ£¬ÊÇ·ñÒª»º´æb
+		//è®¾ç½®å›åŸæ¥çš„å€¼ï¼Œæ˜¯å¦è¦ç¼“å­˜b
 		m_pPOMDP.getBeliefStateFactory().cacheBeliefStates( bPrevious );
 		
 		return vExpanded;
@@ -108,16 +108,16 @@ public class PointBasedValueIteration extends ValueIteration {
 	
 	
 	/**
-	 * Í¨¹ıÖµµü´ú£¬Çó³öÒ»¸ö²ßÂÔ¼°ÏàÓ¦µÄÖµº¯Êı 
+	 * é€šè¿‡å€¼è¿­ä»£ï¼Œæ±‚å‡ºä¸€ä¸ªç­–ç•¥åŠç›¸åº”çš„å€¼å‡½æ•° 
 	 * 
-	 *|Vn| 	m_vValueFunction£¬¸¸ÀàValueIterationÖĞ
+	 *|Vn| 	m_vValueFunctionï¼Œçˆ¶ç±»ValueIterationä¸­
 	 *|B|	vBeliefPoints
 	 * 
-	 * @param cIterations	×î´óµÄµü´ú´ÎÊı£¬TODO 400
-	 * @param dEpsilon		½áÊøÌõ¼ş£¬¼´Öµµü´úÇ°ºóµÄvalueÖ®²î, 0.001	ExecutionProperties.getEpsilon()
-	 * @param dTargetValue	target Averaged Discounted Reward, if we want to stop if we get to some level of ADR£¬100.0
-	 * @param maxRunningTime	×î´óÔËĞĞÊ±¼ä£¬45s
-	 * @param numEvaluations	TODO Ã²ËÆÃ¿Ò»´Î¸Ãº¯ÊıµÄ¼ÆËã£¬¶¼ËãÒ»´Îevaluation ÆÀ¹À´ÎÊı£¬3
+	 * @param cIterations	æœ€å¤§çš„è¿­ä»£æ¬¡æ•°ï¼ŒTODO 400
+	 * @param dEpsilon		ç»“æŸæ¡ä»¶ï¼Œå³å€¼è¿­ä»£å‰åçš„valueä¹‹å·®, 0.001	ExecutionProperties.getEpsilon()
+	 * @param dTargetValue	target Averaged Discounted Reward, if we want to stop if we get to some level of ADRï¼Œ100.0
+	 * @param maxRunningTime	æœ€å¤§è¿è¡Œæ—¶é—´ï¼Œ45s
+	 * @param numEvaluations	TODO è²Œä¼¼æ¯ä¸€æ¬¡è¯¥å‡½æ•°çš„è®¡ç®—ï¼Œéƒ½ç®—ä¸€æ¬¡evaluation è¯„ä¼°æ¬¡æ•°ï¼Œ3
 	 */
 	public void valueIteration(int cIterations, double dEpsilon, double dTargetValue, int maxRunningTime, int numEvaluations){
 		
@@ -148,10 +148,10 @@ public class PointBasedValueIteration extends ValueIteration {
 		long lCPUTimeAfter = 0, lCPUTimeTotal = 0;
 		int cValueFunctionChanges = 0;		
 			
-		//³õÊ¼»¯ĞÅÄîµã¼¯ºÏB
+		//åˆå§‹åŒ–ä¿¡å¿µç‚¹é›†åˆB
 		BeliefStateVector<BeliefState>	vBeliefPoints = new BeliefStateVector<BeliefState>();
 		
-		//°Ñb0¼ÓÈëB
+		//æŠŠb0åŠ å…¥B
 		/* initialize the list of belief points with the initial belief state */
 		vBeliefPoints.add(null, m_pPOMDP.getBeliefStateFactory().getInitialBeliefState() );
 		
@@ -159,7 +159,7 @@ public class PointBasedValueIteration extends ValueIteration {
 
 		for( iIteration = 0 ; iIteration < cIterations && !bDone ; iIteration++ ){
 			
-			//¼ÇÂ¼ÒÑ»¨È¥µÄÊ±¼ä
+			//è®°å½•å·²èŠ±å»çš„æ—¶é—´
 			/* Compute quality of solution at this time */
 			long elapsedTimeSeconds = m_cElapsedExecutionTime / 1000000000;
 			lCPUTimeBefore = JProf.getCurrentThreadCpuTimeSafe();
@@ -173,10 +173,10 @@ public class PointBasedValueIteration extends ValueIteration {
 //					vBeliefPoints = expandMultiThread( vBeliefPoints );
 					Logger.getInstance().logln("Error: PointBasedValueIteration.valueIteration: This functionality has been emporarilys disabled.");
 				else
-					//À©³äB
+					//æ‰©å……B
 					vBeliefPoints = expandPBVI( vBeliefPoints );
 				Logger.getInstance().logln( "Expanded belief space - |B| = " + vBeliefPoints.size() );
-				//Èç¹ûB²»±ä»¯ÁË£¬¾ÍÍ£Ö¹µü´ú
+				//å¦‚æœBä¸å˜åŒ–äº†ï¼Œå°±åœæ­¢è¿­ä»£
 				if( vBeliefPoints.size() == cBeliefPoints )
 					bDone = true;
 			}
@@ -186,7 +186,7 @@ public class PointBasedValueIteration extends ValueIteration {
 					
 			dDelta = 1.0;
 			bDoneInternal = false;
-			//Í¨¹ıÒ»¸öµü´úÀ´improve£¬¶¼Ö»µü´úÒ»´Î cInternalIterations == 1
+			//é€šè¿‡ä¸€ä¸ªè¿­ä»£æ¥improveï¼Œéƒ½åªè¿­ä»£ä¸€æ¬¡ cInternalIterations == 1
 			for( iInternalIteration = 0 ; 
 				( iInternalIteration < cInternalIterations ) && ( dDelta > dMinDelta ) && !bDoneInternal ; iInternalIteration++ ){
 				
@@ -206,17 +206,17 @@ public class PointBasedValueIteration extends ValueIteration {
 				m_cElapsedExecutionTime += (lCPUTimeAfter - lCPUTimeBefore);
 				lCPUTimeTotal += (lCPUTimeAfter - lCPUTimeBefore);
 				
-				//¼ì²éÄÚ²¿µü´úµÄÖÕÖ¹Ìõ¼ş
-				//dDelta < dEpsilon »òÕß Öµº¯Êı²»±äÁË
+				//æ£€æŸ¥å†…éƒ¨è¿­ä»£çš„ç»ˆæ­¢æ¡ä»¶
+				//dDelta < dEpsilon æˆ–è€… å€¼å‡½æ•°ä¸å˜äº†
 				if( dDelta < dEpsilon && cValueFunctionChanges == m_vValueFunction.getChangesCount() ){
 					Logger.getInstance().logln( "Value function did not change - iteration " + iIteration + " complete" );
 					bDoneInternal = true;
 				}
 				else{
-					//Êä³ö±¾´Îµü´úµÄĞÅÏ¢
-					//ËäÈ»Õâ¸öÊÇÔÚÄÚ²¿µü´ú£¬µ«ÊÇ£¬ÄÚ²¿µü´úÖ»ÓĞÒ»´Î£¬ËùÒÔ£¬ÕâÆäÊµÒ²ÊÇÒ»´ÎÍâ²¿µü´úµÄĞÅÏ¢
+					//è¾“å‡ºæœ¬æ¬¡è¿­ä»£çš„ä¿¡æ¯
+					//è™½ç„¶è¿™ä¸ªæ˜¯åœ¨å†…éƒ¨è¿­ä»£ï¼Œä½†æ˜¯ï¼Œå†…éƒ¨è¿­ä»£åªæœ‰ä¸€æ¬¡ï¼Œæ‰€ä»¥ï¼Œè¿™å…¶å®ä¹Ÿæ˜¯ä¸€æ¬¡å¤–éƒ¨è¿­ä»£çš„ä¿¡æ¯
 					if( iIteration > 0 ){
-						//¼ì²éÆ½¾ùÕÛ¿Û»Ø±¨ÊÇ·ñÊÕÁ²£¬Èç¹ûÊÕÁ²£¬¾ÍÈÏÎªÄÚ²¿µü´ú¿ÉÒÔÍ£Ö¹ÁË
+						//æ£€æŸ¥å¹³å‡æŠ˜æ‰£å›æŠ¥æ˜¯å¦æ”¶æ•›ï¼Œå¦‚æœæ”¶æ•›ï¼Œå°±è®¤ä¸ºå†…éƒ¨è¿­ä»£å¯ä»¥åœæ­¢äº†
 						bDone = bDone || checkADRConvergence( m_pPOMDP, dTargetValue, pComputedADRs );
 						if( bDone )
 							bDoneInternal = true;
@@ -250,7 +250,7 @@ public class PointBasedValueIteration extends ValueIteration {
 
 	 
 	protected double improveValueFunction( BeliefStateVector vBeliefPoints ){
-		//vNextValueFunctionÃ»ÓĞÓÃµ½
+		//vNextValueFunctionæ²¡æœ‰ç”¨åˆ°
 		LinearValueFunctionApproximation vNextValueFunction = new LinearValueFunctionApproximation( m_dEpsilon, true );
 		BeliefState bsCurrent = null, bsMax = null;
 		AlphaVector avBackup = null, avNext = null, avCurrentMax = null;
@@ -264,16 +264,16 @@ public class PointBasedValueIteration extends ValueIteration {
 			m_itCurrentIterationPoints = vBeliefPoints.getTreeDownUpIterator();
 		dMaxDelta = 0.0;
 		
-		//µü´úËùÓĞµÄb
+		//è¿­ä»£æ‰€æœ‰çš„b
 		while( m_itCurrentIterationPoints.hasNext() ){
-			//µ±Ç°µÄb
+			//å½“å‰çš„b
 			bsCurrent= (BeliefState) m_itCurrentIterationPoints.next();
-			//µ±Ç°b¶ÔÓ¦µÄ×î´ó¦Á
+			//å½“å‰bå¯¹åº”çš„æœ€å¤§Î±
 			avCurrentMax = m_vValueFunction.getMaxAlpha( bsCurrent );
-			//backup²Ù×÷ºóµÄ¦Á
+			//backupæ“ä½œåçš„Î±
 			avBackup = backup( bsCurrent );
 			
-			//¼ÆËãbackupÇ°ºó£¬¸ÃbµãvalueÖ®²î
+			//è®¡ç®—backupå‰åï¼Œè¯¥bç‚¹valueä¹‹å·®
 			dBackupValue = avBackup.dotProduct( bsCurrent );
 			dValue = avCurrentMax.dotProduct( bsCurrent );
 			dDelta = dBackupValue - dValue;
@@ -288,21 +288,21 @@ public class PointBasedValueIteration extends ValueIteration {
 			
 			avNext = avBackup;
 			
-			//Èç¹ûÓĞÌáÉı£¬²Å»áÔö¼ÓĞÂµÄ¦Á
+			//å¦‚æœæœ‰æå‡ï¼Œæ‰ä¼šå¢åŠ æ–°çš„Î±
 			if(dDelta >= 0)
 				m_vValueFunction.addPrunePointwiseDominated( avBackup );
 			iBeliefState++;
 		}
 		
 		if( m_bSingleValueFunction ){
-			//vNextValueFunctionÃ»ÓĞÓÃµ½
+			//vNextValueFunctionæ²¡æœ‰ç”¨åˆ°
 			Iterator it = vNextValueFunction.iterator();
 			while( it.hasNext() ){
 				avNext = (AlphaVector) it.next();
 				m_vValueFunction.addPrunePointwiseDominated( avNext );
 			}
 		}
-		//Ã»ÓĞÓÃµ½
+		//æ²¡æœ‰ç”¨åˆ°
 		else{
 			m_vValueFunction.copy( vNextValueFunction );
 		}

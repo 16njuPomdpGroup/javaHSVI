@@ -42,28 +42,28 @@ public class SingleExperiment {
 
 		if (args.length == 13)
 		{
-			sExperimentType = args[0]; 	// ÊÔÑéÀàĞÍ£¬£¨Ä¿Ç°Ö»ÓĞBasicÒ»ÖÖÈ¡Öµ£©
-			sModelName = args[1];		// Êı¾İ¼¯µÄÃû³Æ
-			maxRunningTime = Integer.parseInt(args[2]);		//×î´óÔËĞĞÊ±¼ä
-			numEvaluations = Integer.parseInt(args[3]);		//ºÍmaxRunningTimeÁ½Õß¾ö¶¨µÄÖµµü´úµÄtimePerEval
-			numIndependentTrials = Integer.parseInt(args[4]);	// £¨PBVIËã·¨È·¶¨µÄÇé¿öÏÂ£©ÖØ¸´µÄ´ÎÊı
-			collectionName = args[5];						// collection·½·¨Ãû³Æ£ºGapMinCollection,FSVICollection,HSVICollection,PEMACollection,PBVICollection,RandomCollection
+			sExperimentType = args[0]; 	// è¯•éªŒç±»å‹ï¼Œï¼ˆç›®å‰åªæœ‰Basicä¸€ç§å–å€¼ï¼‰
+			sModelName = args[1];		// æ•°æ®é›†çš„åç§°
+			maxRunningTime = Integer.parseInt(args[2]);		//æœ€å¤§è¿è¡Œæ—¶é—´
+			numEvaluations = Integer.parseInt(args[3]);		//å’ŒmaxRunningTimeä¸¤è€…å†³å®šçš„å€¼è¿­ä»£çš„timePerEval
+			numIndependentTrials = Integer.parseInt(args[4]);	// ï¼ˆPBVIç®—æ³•ç¡®å®šçš„æƒ…å†µä¸‹ï¼‰é‡å¤çš„æ¬¡æ•°
+			collectionName = args[5];						// collectionæ–¹æ³•åç§°ï¼šGapMinCollection,FSVICollection,HSVICollection,PEMACollection,PBVICollection,RandomCollection
 			orderingName = args[6];							// PerseusBackup, FullBackup, NewestPointsBackup
 			numBeliefsPerStepOrg = Integer.parseInt(args[7]);	// 
-			numBackupIterations = Integer.parseInt(args[8]);	//	imporveValueFunction()Ö´ĞĞ´ÎÊı
-			if (Boolean.parseBoolean(args[9]))				//ÊÇ·ñÔÊĞí·´Ğò
+			numBackupIterations = Integer.parseInt(args[8]);	//	imporveValueFunction()æ‰§è¡Œæ¬¡æ•°
+			if (Boolean.parseBoolean(args[9]))				//æ˜¯å¦å…è®¸ååº
 				bReversedBackupOrder = true;				
 			else
 				bReversedBackupOrder = false;				
-			if (Boolean.parseBoolean(args[10]))				// expandĞÅÄîµã¼¯¹ı³ÌÖĞÊÇ·ñÔÊĞíÖØ¸´µãµÄ³öÏÖ
+			if (Boolean.parseBoolean(args[10]))				// expandä¿¡å¿µç‚¹é›†è¿‡ç¨‹ä¸­æ˜¯å¦å…è®¸é‡å¤ç‚¹çš„å‡ºç°
 				bAllowDuplicates = true;					
 			else
 				bAllowDuplicates = false;
-			if (Boolean.parseBoolean(args[11]))				// ÊÇ·ñÊ¹ÓÃFIBËã·¨
+			if (Boolean.parseBoolean(args[11]))				// æ˜¯å¦ä½¿ç”¨FIBç®—æ³•
 				bUseFIB = true;
 			else
 				bUseFIB = false;
-			if (Boolean.parseBoolean(args[12]))		// ÊÇ·ñÊ¹ÓÃblind ²ßÂÔ
+			if (Boolean.parseBoolean(args[12]))		// æ˜¯å¦ä½¿ç”¨blind ç­–ç•¥
 				useBlindPolicy = true;
 			else
 				useBlindPolicy = false;
@@ -82,7 +82,7 @@ public class SingleExperiment {
 
 		sFileName += ".txt";
 
-		if( collectionName.equals( "PEMACollection"  ) ) 	//		PEMA£¬ numBeliefPerStepOrg²ÎÊı³ıÒÔ10
+		if( collectionName.equals( "PEMACollection"  ) ) 	//		PEMAï¼Œ numBeliefPerStepOrgå‚æ•°é™¤ä»¥10
 			numBeliefsPerStep = numBeliefsPerStepOrg / 10;	
 		else
 			numBeliefsPerStep = numBeliefsPerStepOrg;

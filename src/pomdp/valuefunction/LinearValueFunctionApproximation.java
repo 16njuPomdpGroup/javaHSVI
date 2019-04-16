@@ -33,11 +33,11 @@ import pomdp.utilities.datastructures.LinkedList;
 public class LinearValueFunctionApproximation extends PolicyStrategy implements Serializable {
 	//protected Vector<AlphaVector> m_vAlphaVectors;
 	//protected ArrayList<AlphaVector> m_vAlphaVectorsRead, m_vAlphaVectorsWrite;
-	//¦Á
+	//Î±
 	protected LinkedList<AlphaVector> m_vAlphaVectors;
 	protected RandomGenerator m_rndGenerator;
 	/*
-	 * ¼ÇÂ¼Ö®Öµº¯Êı±»¸Ä±äµÄ´ÎÊı
+	 * è®°å½•ä¹‹å€¼å‡½æ•°è¢«æ”¹å˜çš„æ¬¡æ•°
 	 */
 	protected int m_cValueFunctionChanges;
 	protected double m_dEpsilon;
@@ -191,7 +191,7 @@ public class LinearValueFunctionApproximation extends PolicyStrategy implements 
 		m_bEvaluatingPolicy = false;
 	}
 	
-	//Ôö¼ÓÒ»¸ö¦Á£¬²¢ÇÒÖ»ÁôÏÂdominatedµÄ¦Á
+	//å¢åŠ ä¸€ä¸ªÎ±ï¼Œå¹¶ä¸”åªç•™ä¸‹dominatedçš„Î±
 	public boolean addPrunePointwiseDominated( AlphaVector avNew ){
 		BeliefState bsWitness = null;
 		double dNewValue = 0.0;

@@ -56,48 +56,48 @@ import pomdp.valuefunction.MDPValueFunction;
 public class POMDP implements Serializable {
 	private static final long serialVersionUID = -231630700034970161L;
 
-	// ¸÷ÖÖÖØÒªµÄº¯Êı
+	// å„ç§é‡è¦çš„å‡½æ•°
 	/*
-	 * T:×´Ì¬×ªÒÆº¯Êı£¬sÏÂÖ´ĞĞaµ½s'µÄ¸ÅÂÊ
+	 * T:çŠ¶æ€è½¬ç§»å‡½æ•°ï¼Œsä¸‹æ‰§è¡Œaåˆ°s'çš„æ¦‚ç‡
 	 */
 	protected Function m_fTransition;
 	/*
-	 * R:»Ø±¨Öµº¯Êı£¬sÏÂÖ´ĞĞaµÄ»Ø±¨
+	 * R:å›æŠ¥å€¼å‡½æ•°ï¼Œsä¸‹æ‰§è¡Œaçš„å›æŠ¥
 	 */
 	protected Function m_fReward;
 	/*
-	 * O:aºóµÃµ½sÊ±£¬¹Û²ìµ½oµÄ¸ÅÂÊ
+	 * O:aåå¾—åˆ°sæ—¶ï¼Œè§‚å¯Ÿåˆ°oçš„æ¦‚ç‡
 	 */
 	protected Function m_fObservation;
 	/*
-	 * b.:³õÊ¼Ê±£¬¸÷×´Ì¬µÄ¸ÅÂÊ
+	 * b.:åˆå§‹æ—¶ï¼Œå„çŠ¶æ€çš„æ¦‚ç‡
 	 */
 	protected Function m_fStartState;
 
 	/*
 	 * S
 	 */
-	// ´æ´¢×´Ì¬ºÍ¶ÔÓ¦indexºÅ
+	// å­˜å‚¨çŠ¶æ€å’Œå¯¹åº”indexå·
 	protected Vector<String> m_vStateNames;
-	// ´æ´¢×´Ì¬
+	// å­˜å‚¨çŠ¶æ€
 	protected Map<String, Integer> m_mStates;
 	/*
 	 * A
 	 */
-	// ´æ´¢¶¯×÷ºÍ¶ÔÓ¦indexºÅ
+	// å­˜å‚¨åŠ¨ä½œå’Œå¯¹åº”indexå·
 	protected Map<String, Integer> m_mActionIndexes;
-	// ´æ´¢¶¯×÷Ãû³Æ
+	// å­˜å‚¨åŠ¨ä½œåç§°
 	protected Vector<String> m_vActionNames;
 	/*
-	 * ¦¸
+	 * Î©
 	 */
-	// ´æ´¢¹Û²ìÖµºÍ¶ÔÓ¦µÄindexºÅ
+	// å­˜å‚¨è§‚å¯Ÿå€¼å’Œå¯¹åº”çš„indexå·
 	protected Map<String, Integer> m_mObservations;
-	// ¸÷²ÎÊıµÄ¸öÊıÍ³¼Æ
+	// å„å‚æ•°çš„ä¸ªæ•°ç»Ÿè®¡
 	protected int m_cStates;
 	protected int m_cActions;
 	protected int m_cObservations;
-	// ÕÛ¿Û²ÎÊı
+	// æŠ˜æ‰£å‚æ•°
 	protected double m_dGamma; // discount factor
 
 	protected static String g_sNewline = System.getProperty("line.separator");
@@ -106,7 +106,7 @@ public class POMDP implements Serializable {
 	protected Vector<Integer> m_vTerminalStates;
 	protected Vector<Integer> m_vObservationStates;
 	protected double[][] m_adStoredRewards;
-	// ±£´æÃ¿¸ö¶¯×÷µÄ×îĞ¡»Ø±¨Öµ
+	// ä¿å­˜æ¯ä¸ªåŠ¨ä½œçš„æœ€å°å›æŠ¥å€¼
 	protected double[] m_adMinActionRewards;
 	protected final static double MAX_INF = Double.POSITIVE_INFINITY;
 	protected final static double MIN_INF = Double.NEGATIVE_INFINITY;
@@ -120,7 +120,7 @@ public class POMDP implements Serializable {
 	protected BeliefStateFactory m_bsFactory;
 	protected MDPValueFunction m_vfMDP;
 	protected double m_dMinReward;
-	//Ã»ÓĞÊ¹ÓÃ
+	//æ²¡æœ‰ä½¿ç”¨
 	protected VisualisationUnit m_vVisualisationUnit;
 
 	public enum RewardType {
@@ -169,10 +169,10 @@ public class POMDP implements Serializable {
 
 	public void load(String sFileName) throws IOException,
 			InvalidModelFileFormatException {
-		// È¡Ä£ĞÍÃû×Ö
+		// å–æ¨¡å‹åå­—
 		m_sName = sFileName.substring(sFileName.lastIndexOf("/") + 1, sFileName
 				.lastIndexOf("."));
-		// ´ÓÎÄ¼şÖĞ¼ÓÔØ
+		// ä»æ–‡ä»¶ä¸­åŠ è½½
 		POMDPLoader p = new POMDPLoader(this);
 		p.load(sFileName);
 		if (m_rtReward == RewardType.StateActionState)
@@ -214,7 +214,7 @@ public class POMDP implements Serializable {
 	}
 
 	/**
-	 * T Function£¬ÇóÒ»¸ö×ª»»µÄ¸ÅÂÊ
+	 * T Functionï¼Œæ±‚ä¸€ä¸ªè½¬æ¢çš„æ¦‚ç‡
 	 * @param iState1
 	 * @param iAction
 	 * @param iState2
@@ -285,7 +285,7 @@ public class POMDP implements Serializable {
 
 				dSumReward = m_fReward.valueAt(iStartState, iAction);
 				if (dSumReward == 0) {
-					//Èç¹û°´½áÊø×´Ì¬Çø·Ö»Ø±¨Öµ£¬Ôò°´¸ÅÂÊÇóºÍ
+					//å¦‚æœæŒ‰ç»“æŸçŠ¶æ€åŒºåˆ†å›æŠ¥å€¼ï¼Œåˆ™æŒ‰æ¦‚ç‡æ±‚å’Œ
 					itNonZeroEntries = m_fReward.getNonZeroEntries(iStartState,
 							iAction);
 					if (itNonZeroEntries != null) {
@@ -452,7 +452,7 @@ public class POMDP implements Serializable {
 	}
 
 	/**
-	 * Ä£ÄâÒ»¸öÖ´ĞĞ£º¿ªÊ¼×´Ì¬+¶¯×÷£¬°´ÕÕT FunctionÖ´ĞĞ£»°´¸ÅÂÊÑ¡³öÏÂÒ»¸ö×´Ì¬
+	 * æ¨¡æ‹Ÿä¸€ä¸ªæ‰§è¡Œï¼šå¼€å§‹çŠ¶æ€+åŠ¨ä½œï¼ŒæŒ‰ç…§T Functionæ‰§è¡Œï¼›æŒ‰æ¦‚ç‡é€‰å‡ºä¸‹ä¸€ä¸ªçŠ¶æ€
 	 * 
 	 * @param iAction
 	 * @param iState
@@ -476,7 +476,7 @@ public class POMDP implements Serializable {
 	}
 
 	/**
-	 * Ä£ÄâµÃµ½µÄ¹Û²ìÖµ 
+	 * æ¨¡æ‹Ÿå¾—åˆ°çš„è§‚å¯Ÿå€¼ 
 	 * @param iAction
 	 * @param iState
 	 * @return
@@ -536,7 +536,7 @@ public class POMDP implements Serializable {
 
 	
 	/**
-	 * Ä£ÄâcTests´Î£»Ã¿´ÎÄ£ÄâÖ´ĞĞcMaxStepsToGoal²½£¬²¢¼ÆËã³ö±¾´ÎÄ£ÄâµÄÕÛ¿Û»Ø±¨Öµ£»È»ºóÊä³ö¡¢·µ»ØÆ½¾ùÕÛ¿Û»Ø±¨Öµ
+	 * æ¨¡æ‹ŸcTestsæ¬¡ï¼›æ¯æ¬¡æ¨¡æ‹Ÿæ‰§è¡ŒcMaxStepsToGoalæ­¥ï¼Œå¹¶è®¡ç®—å‡ºæœ¬æ¬¡æ¨¡æ‹Ÿçš„æŠ˜æ‰£å›æŠ¥å€¼ï¼›ç„¶åè¾“å‡ºã€è¿”å›å¹³å‡æŠ˜æ‰£å›æŠ¥å€¼
 	 * @param cTests
 	 * @param cMaxStepsToGoal
 	 * @param policy
@@ -584,7 +584,7 @@ public class POMDP implements Serializable {
 			}
 		} else {
 			m_cSteps = 0;
-			//¼ÆËãcTests´ÎÄ£ÄâÕÛ¿Û»Ø±¨£¬È»ºó¼ÆËãÆ½¾ùÖµ
+			//è®¡ç®—cTestsæ¬¡æ¨¡æ‹ŸæŠ˜æ‰£å›æŠ¥ï¼Œç„¶åè®¡ç®—å¹³å‡å€¼
 			for (iTest = 0; (iTest < cTests) && (dStandardError > 0.01 * dADR); iTest++) {
 				dDiscountedReward = computeDiscountedReward(cMaxStepsToGoal,
 						policy, aiActionCount);
@@ -1274,14 +1274,14 @@ public class POMDP implements Serializable {
 	BeliefStateFactory bsf = null;
 
 	/**
-	 * Ä£ÄâÖ´ĞĞcMaxStepsToGoal²½£¬°´Ö¸¶¨µÄ²ßÂÔºÍÆğÊ¼×´Ì¬¸ÅÂÊ¼°¸÷ÖÖº¯Êı£¬¼ÆËã³öÕÛ¿Û»Ø±¨
+	 * æ¨¡æ‹Ÿæ‰§è¡ŒcMaxStepsToGoalæ­¥ï¼ŒæŒ‰æŒ‡å®šçš„ç­–ç•¥å’Œèµ·å§‹çŠ¶æ€æ¦‚ç‡åŠå„ç§å‡½æ•°ï¼Œè®¡ç®—å‡ºæŠ˜æ‰£å›æŠ¥
 	 * R + yR + y2R + y3R + ...
 	 * 
 	 * @param cMaxStepsToGoal
 	 * @param policy
 	 * @param vObservedBeliefPoints
 	 * @param bExplore
-	 * @param aiActionCount ¼ÇÂ¼¸÷¶¯×÷µÄÖ´ĞĞ´ÎÊı
+	 * @param aiActionCount è®°å½•å„åŠ¨ä½œçš„æ‰§è¡Œæ¬¡æ•°
 	 * @return
 	 */
 	public double computeDiscountedRewardII(int cMaxStepsToGoal,
@@ -1332,12 +1332,12 @@ public class POMDP implements Serializable {
 				vObservedBeliefPoints.add(bsCurrentBelief);
 			}
 
-			//Ä£ÄâÖ´ĞĞ£¬»ñµÃÏÂÒ»¸ö×´Ì¬
+			//æ¨¡æ‹Ÿæ‰§è¡Œï¼Œè·å¾—ä¸‹ä¸€ä¸ªçŠ¶æ€
 			iNextState = execute(iAction, iState);
-			//Ä£Äâ³ö¹Û²ìÖµ
+			//æ¨¡æ‹Ÿå‡ºè§‚å¯Ÿå€¼
 			iObservation = observe(iAction, iNextState);
 
-			//»ñµÃÏàÓ¦µÄÁ¢¼´»Ø±¨
+			//è·å¾—ç›¸åº”çš„ç«‹å³å›æŠ¥
 			if (m_rtReward == RewardType.StateAction)
 				dCurrentReward = R(iState, iAction); // R(s,a)
 			else if (m_rtReward == RewardType.StateActionState)
@@ -1350,12 +1350,12 @@ public class POMDP implements Serializable {
 			if (dCurrentReward != 0)
 				cRewards++;
 
-			//Èô½áÊøÁË£¬»¹ÊÇ»á¼ÌĞøÖ´ĞĞµ½cMaxStepsToGoal²½£¬µ«ÊÇÕÛ¿ÛÒò×ÓÎª0
+			//è‹¥ç»“æŸäº†ï¼Œè¿˜æ˜¯ä¼šç»§ç»­æ‰§è¡Œåˆ°cMaxStepsToGoalæ­¥ï¼Œä½†æ˜¯æŠ˜æ‰£å› å­ä¸º0
 			bDone = endADR(iNextState, dCurrentReward);
 			if (bDone)
 				dDiscountFactor = 0.0;
 
-			//¼ÆËã³öÏÂÒ»¸öĞÅÄîµã
+			//è®¡ç®—å‡ºä¸‹ä¸€ä¸ªä¿¡å¿µç‚¹
 			bsNext = bsCurrentBelief.nextBeliefState(iAction, iObservation);
 
 			if (iState != iNextState)
@@ -1637,7 +1637,7 @@ public class POMDP implements Serializable {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ½áÊøADRµÄ¼ÆËã
+	 * åˆ¤æ–­æ˜¯å¦ç»“æŸADRçš„è®¡ç®—
 	 * ADR: average discount reward
 	 * @param iState
 	 * @param dReward
@@ -1751,7 +1751,7 @@ public class POMDP implements Serializable {
 	}
 
 	/**
-	 * Ä£ÄâÆğÊ¼×´Ì¬£»°´¸ÅÂÊÈ¡Ò»¸ö¿ªÊ¼×´Ì¬
+	 * æ¨¡æ‹Ÿèµ·å§‹çŠ¶æ€ï¼›æŒ‰æ¦‚ç‡å–ä¸€ä¸ªå¼€å§‹çŠ¶æ€
 	 * 
 	 * @return
 	 */
@@ -1825,7 +1825,7 @@ public class POMDP implements Serializable {
 	}
 
 	/**
-	 * »ñµÃºÍ¿ªÊ¼×´Ì¬ºÍ¶¯×÷ÓĞ¹ØµÄ¸ÅÂÊ·Ç0µÄ×ª»»
+	 * è·å¾—å’Œå¼€å§‹çŠ¶æ€å’ŒåŠ¨ä½œæœ‰å…³çš„æ¦‚ç‡é0çš„è½¬æ¢
 	 * 
 	 * @param iStartState
 	 * @param iAction
@@ -2131,7 +2131,7 @@ public class POMDP implements Serializable {
 	}
 
 	/**
-	 * ¸ù¾İ×´Ì¬¡¢¶¯×÷¡¢¹Û²ìÖµµÄÊıÁ¿³õÊ¼»¯¸÷¡°º¯Êı¡± Ö÷ÒªÊÇ³õÊ¼»¯¡°º¯ÊıÀà¡±ÀïÃæµÄÊı¾İ½á¹¹µÄ³¤¶È
+	 * æ ¹æ®çŠ¶æ€ã€åŠ¨ä½œã€è§‚å¯Ÿå€¼çš„æ•°é‡åˆå§‹åŒ–å„â€œå‡½æ•°â€ ä¸»è¦æ˜¯åˆå§‹åŒ–â€œå‡½æ•°ç±»â€é‡Œé¢çš„æ•°æ®ç»“æ„çš„é•¿åº¦
 	 */
 	public void initDynamicsFunctions() {
 		int[] aDims = new int[3];

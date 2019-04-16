@@ -152,8 +152,8 @@ public class UpperBoundValueFunctionApproximation {
 	}
 
 	/**
-	 * ¸üĞÂÉÏ½ç£¬½«£¨ĞÅÄî×´Ì¬µã£¬ÉÏ½çÖµ£©¼ÓÈëÉÏ½çÖĞ
-	 * Q^V(b,a) = R(b,a)+¦Ã¦²Pr(o|b,a)V(¦Ó(b,a,o))
+	 * æ›´æ–°ä¸Šç•Œï¼Œå°†ï¼ˆä¿¡å¿µçŠ¶æ€ç‚¹ï¼Œä¸Šç•Œå€¼ï¼‰åŠ å…¥ä¸Šç•Œä¸­
+	 * Q^V(b,a) = R(b,a)+Î³Î£Pr(o|b,a)V(Ï„(b,a,o))
 	 * HV(b) = max[Q^V(b,a)]
 	 * @param bs b
 	 */
@@ -163,12 +163,12 @@ public class UpperBoundValueFunctionApproximation {
 		double dActionValue = 0.0, dMaxValue = 0.0, dPr = 0.0, dValue = 0.0;
 		for( iAction = 0 ; iAction < m_pPOMDP.getActionCount() ; iAction++ ){
 			dActionValue = m_pPOMDP.immediateReward( bs, iAction );//R(b,a)
-			//Q^V(b,a) = R(b,a)+¦Ã¦²Pr(o|b,a)V(¦Ó(b,a,o))
+			//Q^V(b,a) = R(b,a)+Î³Î£Pr(o|b,a)V(Ï„(b,a,o))
 			for( iObservation = 0 ; iObservation < m_pPOMDP.getObservationCount() ; iObservation++ ){
 				dPr = bs.probabilityOGivenA( iAction, iObservation );//Pr(o|b,a)
 				if( dPr > 0.0 ){
-					bsSuccessor = bs.nextBeliefState( iAction, iObservation );//¦Ó(b,a,o) ¼´b'
-					dValue = valueAt( bsSuccessor );//V(¦Ó(b,a,o))
+					bsSuccessor = bs.nextBeliefState( iAction, iObservation );//Ï„(b,a,o) å³b'
+					dValue = valueAt( bsSuccessor );//V(Ï„(b,a,o))
 					dActionValue += m_pPOMDP.getDiscountFactor() * dValue * dPr;
 				}
 			}

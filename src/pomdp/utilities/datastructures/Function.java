@@ -12,12 +12,12 @@ public abstract class Function implements Serializable {
 	protected double m_dMaxValue;
 	protected double m_dDefaultValue;
 	/**
-	 * Transition Fucntion£º
+	 * Transition Fucntionï¼š
 	 * aDims[0] = m_cStates;
 	 * aDims[1] = m_cActions;
 	 * aDims[2] = m_cStates;
 	 * 
-	 * O Function£º
+	 * O Functionï¼š
 	 * aDims[0] = m_cActions;
 	 * aDims[1] = m_cStates;
 	 * aDims[2] = m_cObservations;
@@ -61,8 +61,8 @@ public abstract class Function implements Serializable {
 	public abstract void setValue( int arg1, int arg2, double dValue );
 	
 	/**
-	 * ÓÃÓÚÔö¼ÓTransition FunctionµÄÒ»¸ö×ª»»
-	 * ²ÎÊı£ºiStartState, iActionIdx, iEndState, dValue)
+	 * ç”¨äºå¢åŠ Transition Functionçš„ä¸€ä¸ªè½¬æ¢
+	 * å‚æ•°ï¼šiStartState, iActionIdx, iEndState, dValue)
 	 * @param arg1
 	 * @param arg2
 	 * @param arg3
@@ -70,7 +70,7 @@ public abstract class Function implements Serializable {
 	 */
 	public abstract void setValue( int arg1, int arg2, int arg3, double dValue );
 	/**
-	 *  »ñµÃºÍ¿ªÊ¼×´Ì¬ºÍ¶¯×÷ÓĞ¹ØµÄ¸ÅÂÊ·Ç0µÄ×ª»»
+	 *  è·å¾—å’Œå¼€å§‹çŠ¶æ€å’ŒåŠ¨ä½œæœ‰å…³çš„æ¦‚ç‡é0çš„è½¬æ¢
 	 * @param arg1
 	 * @param arg2
 	 * @return
@@ -88,10 +88,10 @@ public abstract class Function implements Serializable {
 	}
 	
 	/**
-	 * ÓÃÓÚÔö¼ÓO FunctionµÄÒ»¸ö¹Û²ìÖµ¸ÅÂÊ
-	 * ×îÖÕ¾ùµ÷ÓÃsetValue( iParam1, iParam2, iParam3, dValue )
-	 * ×îÖÕ´æÈëSparseTabularFunction.HashMap<Integer,Double>[][]
-	 * ²ÎÊı£ºiAction, iEndState, iObservation, dValue 
+	 * ç”¨äºå¢åŠ O Functionçš„ä¸€ä¸ªè§‚å¯Ÿå€¼æ¦‚ç‡
+	 * æœ€ç»ˆå‡è°ƒç”¨setValue( iParam1, iParam2, iParam3, dValue )
+	 * æœ€ç»ˆå­˜å…¥SparseTabularFunction.HashMap<Integer,Double>[][]
+	 * å‚æ•°ï¼šiAction, iEndState, iObservation, dValue 
 	 * 
 	 * aDims[0] = m_cActions;
 	 * aDims[1] = m_cStates;
@@ -104,7 +104,7 @@ public abstract class Function implements Serializable {
 	 */
 	public void setAllValues( int iParam1, int iParam2, int iParam3, double dValue ){
 		int cParam1 = m_aDims[0];//m_cActions
-		//iAction, iEndState, iObservation¶¼ÊÇÈÎÒâ
+		//iAction, iEndState, iObservationéƒ½æ˜¯ä»»æ„
 		if( iParam1 == -1 && iParam2 == -1 && iParam3 == -1 )
 		{
 			int cParam2 = m_aDims[1], cParam3 = m_aDims[2]; //m_cStates m_cObservations
@@ -115,10 +115,10 @@ public abstract class Function implements Serializable {
 			return;
 		
 		}
-		//iActionÈÎÒâ
+		//iActionä»»æ„
 		if( iParam1 == -1 ){
 			for( iParam1 = 0 ; iParam1 < cParam1 ; iParam1++ ){
-				//iEndStateÈÎÒâ
+				//iEndStateä»»æ„
 				if( iParam2 == -1 ){
 					setAllValues( iParam1, iParam3, dValue );
 				}
@@ -128,7 +128,7 @@ public abstract class Function implements Serializable {
 			}
 		}
 		else{
-			//iEndStateÈÎÒâ
+			//iEndStateä»»æ„
 			if( iParam2 == -1 ){
 				setAllValues( iParam1, iParam3, dValue );
 			}

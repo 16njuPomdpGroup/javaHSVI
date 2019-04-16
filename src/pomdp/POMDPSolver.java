@@ -44,11 +44,12 @@ public class POMDPSolver {
 		//String sModelName = "RockSample";
 		//String sModelName = "RockSample7";
 		//String sModelName = "MasterMind";
-		String sModelName = "RockSample_5_5";
+//		String sModelName = "RockSample_5_5";
 //		String sModelName = "4x3.95";
 		//String sModelName = "tagAvoid";
 		//String sModelName = "tiger-grid";
-		String sMethodName = "HSVI";
+		String sModelName = "hallway";
+		String sMethodName = "PBVI";
 		long maxExecutionTime = 1000*60*10;
 		int maxIteration = 100;
 						
@@ -74,7 +75,7 @@ public class POMDPSolver {
 		}
 		
 		
-		//³õÊ¼»¯Logger
+		//åˆå§‹åŒ–Logger
 		Logger.getInstance().setOutput(true);
 		Logger.getInstance().setSilent(false);
 		try
@@ -97,7 +98,7 @@ public class POMDPSolver {
 		
 		/* target Running time (in seconds), if we want to stop at a specified time */
 		int maxRunningTime = 45;
-		//Êµ¼ÊÉÏÃ»ÓĞÓÃµ½
+		//å®é™…ä¸Šæ²¡æœ‰ç”¨åˆ°
 		int numEvaluations = 3;
 		/* load the POMDP model */
 		try{
@@ -137,7 +138,7 @@ public class POMDPSolver {
 			else{
 				pomdp = new POMDP();
 				pomdp.load( sPath + sModelName + ".POMDP" );
-				//Êä³ö×î´ó»Ø±¨Öµ¡¢×îĞ¡»Ø±¨Öµ
+				//è¾“å‡ºæœ€å¤§å›æŠ¥å€¼ã€æœ€å°å›æŠ¥å€¼
 				Logger.getInstance().logln("max is " + pomdp.getMaxR() + " min is "+ pomdp.getMinR());
 			}
 		}
@@ -148,7 +149,7 @@ public class POMDPSolver {
 		}
 
         /*
-        Ó¦¸ÃÊÇ¼ÇÂ¼Ëæ»ú²ßÂÔÏÂµÄ½á¹û
+        åº”è¯¥æ˜¯è®°å½•éšæœºç­–ç•¥ä¸‹çš„ç»“æœ
          */
 		//pomdp.computeAverageDiscountedReward(2,100,new RandomWalkPolicy(pomdp.getActionCount()));
 
@@ -172,18 +173,18 @@ public class POMDPSolver {
 			System.exit( 0 );
 		}
 		
-		//TODO ×öÁËblind policy£¬»ñµÃPointBasedValueIteration
+		//TODO åšäº†blind policyï¼Œè·å¾—PointBasedValueIteration
 		ValueIteration viAlgorithm = AlgorithmsFactory.getAlgorithm( sMethodName, pomdp );
 		viAlgorithm.setM_maxExecutionTime(maxExecutionTime);
 
 		/*
-		´ÓÏÖÔÚ¿ªÊ¼²ÅÖ´ĞĞÖµµü´ú
+		ä»ç°åœ¨å¼€å§‹æ‰æ‰§è¡Œå€¼è¿­ä»£
 		 */
 		int cMaxIterations = maxIteration;
 		try{
 			/* run POMDP solver */
             /*
-            Ö´ĞĞÖµµü´ú£¬»ñµÃÖµº¯Êı
+            æ‰§è¡Œå€¼è¿­ä»£ï¼Œè·å¾—å€¼å‡½æ•°
              */
 			viAlgorithm.valueIteration( cMaxIterations, ExecutionProperties.getEpsilon(), dTargetADR, maxRunningTime, numEvaluations);
 			

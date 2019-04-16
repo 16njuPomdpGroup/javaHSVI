@@ -85,7 +85,7 @@ public class POMDPLoader {
 	}
 	
 	/**
-	 * ¼ì²â¸÷¸ÅÂÊÖ®ºÍÊÇ·ñ³¬¹ı1
+	 * æ£€æµ‹å„æ¦‚ç‡ä¹‹å’Œæ˜¯å¦è¶…è¿‡1
 	 */
 	protected void verifyFunctions(){
 		int iStartState = 0, iAction = 0, iEndState = 0, iObservation = 0;
@@ -254,12 +254,12 @@ public class POMDPLoader {
 	protected void readTransition( LineReader lrInput, String sAction, StringTokenizer stLine ) throws InvalidModelFileFormatException{
 		String sStartState = "", sEndState = "", sValue = "", sLine = "";
 		int iStartState = 0, iEndState = 0, iActionIdx = m_pPOMDP.getActionIndex( sAction ), iAction = 0;
-		//¸ÅÂÊÖµ
+		//æ¦‚ç‡å€¼
 		double dValue = 0;
 		int cStates = m_pPOMDP.getStateCount(), cActions = m_pPOMDP.getActionCount();
 		
 		if( stLine.hasMoreTokens() ){
-			//¶Á¿ªÊ¼×´Ì¬
+			//è¯»å¼€å§‹çŠ¶æ€
 			stLine.nextToken();
 			sStartState = stLine.nextToken();
 			if( sStartState.equals( "*" ) )
@@ -267,7 +267,7 @@ public class POMDPLoader {
 			else
 				iStartState = m_pPOMDP.getStateIndex( sStartState );
 			if( stLine.hasMoreTokens() ){
-				//¶Á½áÊø×´Ì¬
+				//è¯»ç»“æŸçŠ¶æ€
 				stLine.nextToken();
 				sEndState = stLine.nextToken();
 				sValue = stLine.nextToken();
@@ -275,35 +275,35 @@ public class POMDPLoader {
 					iEndState = -1;
 				else
 					iEndState = m_pPOMDP.getStateIndex( sEndState );
-				//¶Á¸ÅÂÊÖµ
+				//è¯»æ¦‚ç‡å€¼
 				dValue = Double.parseDouble( sValue );
 				if(( dValue == 0.0 ) && (sAction.equals("*")))
 					return;
-				//¶¯×÷ÔÚ±¾º¯Êı±»µ÷ÓÃÇ°¾Í¶Á³öÀ´ÁË
-				//Ôö¼Ó*¶¯×÷ÏÂµÄ×ª»»£¬°ÑËùÓĞ¶¯×÷ÏÂµÄÇé¿ö¶¼¼ÓÉÏÈ¥
-				//¶¯×÷ºÍ¿ªÊ¼×´Ì¬²»»áÍ¬Ê±Îª*
+				//åŠ¨ä½œåœ¨æœ¬å‡½æ•°è¢«è°ƒç”¨å‰å°±è¯»å‡ºæ¥äº†
+				//å¢åŠ *åŠ¨ä½œä¸‹çš„è½¬æ¢ï¼ŒæŠŠæ‰€æœ‰åŠ¨ä½œä¸‹çš„æƒ…å†µéƒ½åŠ ä¸Šå»
+				//åŠ¨ä½œå’Œå¼€å§‹çŠ¶æ€ä¸ä¼šåŒæ—¶ä¸º*
 				if( sAction.equals( "*" ) ){
 					for( iAction = 0 ; iAction < cActions ; iAction++ ){
-						//Ê¹ÓÃindexÖ¸¶¨¿ªÊ¼×´Ì¬¡¢¶¯×÷¡¢½áÊø×´Ì¬
+						//ä½¿ç”¨indexæŒ‡å®šå¼€å§‹çŠ¶æ€ã€åŠ¨ä½œã€ç»“æŸçŠ¶æ€
 						m_pPOMDP.setTransition( iStartState, iAction, iEndState, dValue );
 					}
 				}
 				else{
-					//Ôö¼Ó*¿ªÊ¼×´Ì¬µÄ×ª»»£¬°ÑËùÓĞ¿ªÊ¼×´Ì¬µÄÇé¿ö¶¼¼ÓÉÏÈ¥
+					//å¢åŠ *å¼€å§‹çŠ¶æ€çš„è½¬æ¢ï¼ŒæŠŠæ‰€æœ‰å¼€å§‹çŠ¶æ€çš„æƒ…å†µéƒ½åŠ ä¸Šå»
 					if( sStartState.equals( "*" ) ){
 						for( iStartState = 0 ; iStartState < cStates ; iStartState++ ){
 							m_pPOMDP.setTransition( iStartState, iActionIdx, iEndState, dValue );
 						}
 					}
-					//Ò»¸öÃ÷È·µÄ×ª»»
+					//ä¸€ä¸ªæ˜ç¡®çš„è½¬æ¢
 					else{
 						m_pPOMDP.setTransition( iStartState, iActionIdx, iEndState, dValue );
 					}
 				}
 			
 			}
-			//Ö»ÓĞÒ»¸ö¿ªÊ¼×´Ì¬
-			//¶ÔÓ¦ÈçÏÂÇé¿ö£º
+			//åªæœ‰ä¸€ä¸ªå¼€å§‹çŠ¶æ€
+			//å¯¹åº”å¦‚ä¸‹æƒ…å†µï¼š
 			//T: <action> : <start-state> 
 			//%f %f ... %f 
 			else{
@@ -334,7 +334,7 @@ public class POMDPLoader {
 				}
 			}
 		}
-		//Ö»ÓĞÒ»¸ö¶¯×÷
+		//åªæœ‰ä¸€ä¸ªåŠ¨ä½œ
 		else{		
 			try{
 				sLine = lrInput.readLine();
@@ -343,8 +343,8 @@ public class POMDPLoader {
 	
 					//Logger.getInstance().logln( sLine );
 
-					//¸ÅÂÊ¾ù·ÖµÄÇé¿ö
-					//×´Ì¬²»»á¸Ä±äµÄÇé¿ö
+					//æ¦‚ç‡å‡åˆ†çš„æƒ…å†µ
+					//çŠ¶æ€ä¸ä¼šæ”¹å˜çš„æƒ…å†µ
 					//T: <action> 
 					//uniform
 					if (sLine.equals("uniform"))
@@ -365,7 +365,7 @@ public class POMDPLoader {
 						
 					}
 					
-					//×´Ì¬²»»á¸Ä±äµÄÇé¿ö
+					//çŠ¶æ€ä¸ä¼šæ”¹å˜çš„æƒ…å†µ
 					//T: <action> 
 					//identity
 					else if (sLine.equals("identity"))
@@ -389,7 +389,7 @@ public class POMDPLoader {
 						
 					}
 					
-					//¶ÔÓ¦ÈçÏÂÇé¿ö£º
+					//å¯¹åº”å¦‚ä¸‹æƒ…å†µï¼š
 					//T: <action> 
 					//%f %f ... %f 
 					//%f $f ... %f 
@@ -455,7 +455,7 @@ public class POMDPLoader {
 			//if( dValue == 0.0 )
 			//	return;
 			
-			//¹Û²ìÖµÒ»¶¨ÊÇ*
+			//è§‚å¯Ÿå€¼ä¸€å®šæ˜¯*
 			if( !sObservation.equals( "*" ) )
 				throw new InvalidModelFileFormatException( "Not supporting splitting rewards to observations" );
 			if( !sAction.equals( "*" ) )
@@ -539,7 +539,7 @@ public class POMDPLoader {
 		double dValue = 0;
 		
 		if( stLine.hasMoreTokens() ){
-			//¶Á½áÊø×´Ì¬
+			//è¯»ç»“æŸçŠ¶æ€
 			stLine.nextToken(); //":"
 			sEndState = stLine.nextToken();
 			if( sEndState.equals( "*" ) )
@@ -548,10 +548,10 @@ public class POMDPLoader {
 				iEndState = m_pPOMDP.getStateIndex( sEndState );
 			
 			
-			//ÈçÏÂÇé¿ö£º
+			//å¦‚ä¸‹æƒ…å†µï¼š
 			//O : <action> : <end-state> : <observation> %f
 			if( stLine.hasMoreTokens() ){
-				//¶Á¹Û²ìÖµ
+				//è¯»è§‚å¯Ÿå€¼
 				stLine.nextToken();//":"
 				sObservation = stLine.nextToken();
 				iObservation = m_pPOMDP.getObservationIndex( sObservation );
@@ -560,7 +560,7 @@ public class POMDPLoader {
 					throw new InvalidModelFileFormatException( "Observation " + sObservation + " was not recognized" ); 
 				
 				sValue = stLine.nextToken();
-				//¶Á¸ÅÂÊÖµ
+				//è¯»æ¦‚ç‡å€¼
 				dValue = Double.parseDouble( sValue );
 								
 				if( sEndState.equals( "*" ) )
@@ -571,7 +571,7 @@ public class POMDPLoader {
 				
 				m_pPOMDP.setObservation( iActionIdx, iEndState, iObservation, dValue );
 			}
-			//ÈçÏÂÇé¿ö£º
+			//å¦‚ä¸‹æƒ…å†µï¼š
 			//O : <action> : <end-state>
 			//%f %f ... %f
 			else{
@@ -595,7 +595,7 @@ public class POMDPLoader {
 				}
 			}
 		}
-		//ÈçÏÂÇé¿ö£ºN*O
+		//å¦‚ä¸‹æƒ…å†µï¼šN*O
 		//O : <action>
 		//%f %f ... %f 
 		//%f $f ... %f 

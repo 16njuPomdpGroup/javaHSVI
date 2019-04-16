@@ -12,9 +12,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import com.sun.corba.se.spi.orb.StringPair;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import pomdp.utilities.Logger;
 
 
@@ -47,8 +44,8 @@ public class POMDPExperiment {
 		
 
 		/* target Running time (in seconds), if we want to stop at a specified time */
-		int maxRunningTime = 200;				//×î´óÔËÐÐÊ±¼ä
-		int numEvaluations = 20;				//ÆÀ¹À´ÎÊý£¬Ã¿¾­¹ýmaxRunningTime/numEvaluationsÊ±¼ä£¬¼ÆËãÒ»´ÎÏßÐÔ²åÖµ½øÐÐÆÀ¹À
+		int maxRunningTime = 200;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+		int numEvaluations = 20;				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½maxRunningTime/numEvaluationsÊ±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int numIndependentTrials = 1;			
 		int numBeliefsPerStep = -1, numBeliefsPerStepOrg = 100;
 		int numBackupIterations = 1;

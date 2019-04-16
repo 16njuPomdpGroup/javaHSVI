@@ -31,7 +31,7 @@ public class PBVIDownToTopCollection extends BeliefCollection{
 	
 	
 	/**
-	 * ¸Ã·½·¨ÒÑ×÷ÁËtreeµÄĞŞ¸Ä
+	 * è¯¥æ–¹æ³•å·²ä½œäº†treeçš„ä¿®æ”¹
 	 */
 	public Vector<BeliefState> expand(int numNewBeliefs, Vector<BeliefState> beliefPointsIn)
 	{
@@ -51,7 +51,7 @@ public class PBVIDownToTopCollection extends BeliefCollection{
 			else
 				 bsNext = POMDP.getBeliefStateFactory().computeFarthestSuccessor(combinedBeliefs, picked);
 			
-			//ÈôbµÄºó¼Ìµã¶¼ÔÚBÖĞÁË£¬¾Í°Ñb´ÓBÖĞÈ¥³ı
+			//è‹¥bçš„åç»§ç‚¹éƒ½åœ¨Bä¸­äº†ï¼Œå°±æŠŠbä»Bä¸­å»é™¤
 			if( bsNext == null )//do not choose again a belief who has all its successors already in B
 				combinedBeliefs.remove( picked );
 //				combinedBeliefs.removeABeliefStateWithTree(picked);
@@ -68,7 +68,7 @@ public class PBVIDownToTopCollection extends BeliefCollection{
 	
 	
 	/**
-	 * ¸Ã·½·¨ÒÑ×÷ÁËtreeµÄĞŞ¸Ä
+	 * è¯¥æ–¹æ³•å·²ä½œäº†treeçš„ä¿®æ”¹
 	 */
 	public Vector<BeliefState> expand(Vector<BeliefState> beliefPoints){
 			
@@ -79,7 +79,7 @@ public class PBVIDownToTopCollection extends BeliefCollection{
 		{
 			bsNext = POMDP.getBeliefStateFactory().computeFarthestSuccessor(beliefPoints, bsCurrent);
 			if( (bsNext != null) && (!newBeliefs.contains(bsNext)) && (!beliefPoints.contains(bsNext))){
-				//´øÈëparentĞÅÏ¢
+				//å¸¦å…¥parentä¿¡æ¯
 				newBeliefs.add(bsCurrent, bsNext);
 			}		
 		}	

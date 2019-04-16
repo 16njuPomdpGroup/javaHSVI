@@ -39,7 +39,7 @@ public class AllExperiments {
 		boolean bAllowDuplicates = true;
 		boolean bReversedBackupOrder = false;
 		/*
-		 * ÊÇprocessµÄmax num
+		 * æ˜¯processçš„max num
 		 */
 		int cMaxThreads = 21;
 
@@ -53,7 +53,7 @@ public class AllExperiments {
 					else
 						numBeliefsPerStep = numBeliefsPerStepOrg;
 
-					//×¼±¸²ÎÊı
+					//å‡†å¤‡å‚æ•°
 					String sCommandLine = "java -Xmx1G SingleExperiment ";
 					sCommandLine += sExperimentType + " ";
 					sCommandLine += sModelName + " ";
@@ -67,7 +67,7 @@ public class AllExperiments {
 					sCommandLine += bReversedBackupOrder + " ";
 					
 
-					//ÃüÁîĞĞµ÷ÓÃSingleExperiment£¬¿ªĞÂ½ø³Ì
+					//å‘½ä»¤è¡Œè°ƒç”¨SingleExperimentï¼Œå¼€æ–°è¿›ç¨‹
 					try{
 						Process p = Runtime.getRuntime().exec( sCommandLine );
 						vProcesses.add(p);
@@ -78,7 +78,7 @@ public class AllExperiments {
 						System.err.println(e);
 					}
 
-					//È·±£½ø³ÌÊıÁ¿²»³¬¹ıcMaxThreads£¬²¢ÇÒÊÕ¼¯Êä³ö½á¹û
+					//ç¡®ä¿è¿›ç¨‹æ•°é‡ä¸è¶…è¿‡cMaxThreadsï¼Œå¹¶ä¸”æ”¶é›†è¾“å‡ºç»“æœ
 					while(vActiveProcesses.size() == cMaxThreads){
 						try
 						{
@@ -87,17 +87,17 @@ public class AllExperiments {
 							for(Process p : vActiveProcesses)
 							{
 								if(p.exitValue() == -1)
-									//·ÇÕı³£ÍË³ö¾Í²»¼ÇÂ¼ÁË¡£¡£¡£¡£º¹
+									//éæ­£å¸¸é€€å‡ºå°±ä¸è®°å½•äº†ã€‚ã€‚ã€‚ã€‚æ±—
 									vCurrentActiveThreads.add(p);
 								else
 								{
-									//Õı³£ÍË³ö£¬¼ÇÂ¼ÏÂ
+									//æ­£å¸¸é€€å‡ºï¼Œè®°å½•ä¸‹
 									PrintStream ps = new PrintStream( new FileOutputStream("logs/Basic/done.txt"));
 									ps.println(sModelName + ", " + collectionName + ", " + orderingName );
 									ps.close();								
 								}
 							}
-							//¸üĞÂ¼ÇÂ¼»î¶¯½ø³Ì¼¯ºÏ
+							//æ›´æ–°è®°å½•æ´»åŠ¨è¿›ç¨‹é›†åˆ
 							vActiveProcesses = vCurrentActiveThreads;
 						}
 						catch(Exception e)
@@ -109,7 +109,7 @@ public class AllExperiments {
 			}
 		}
 		
-		//µÈ´ıÈ«²¿½ø³Ì½áÊø£¬Õâ±ßÍË³öµÄ¾Í²»¼ÇÂ¼ÁË
+		//ç­‰å¾…å…¨éƒ¨è¿›ç¨‹ç»“æŸï¼Œè¿™è¾¹é€€å‡ºçš„å°±ä¸è®°å½•äº†
 		for(Process p : vProcesses)
 		{
 			try

@@ -231,11 +231,11 @@ public class GapMinCollection extends BeliefCollection {
 	}
 	
 	private int getExplorationActionByDistribution(BeliefState bsCurrent, Pair<Integer,Double> pBestAction) {
-		/*¾ùÔÈ·Ö²¼Ëã·¨*/
-		/*×öcMaxIteration´ÎÊÔÑé£¬Ã¿´ÎÊÔÑé±éÀúÒ»´ÎËùÓĞµÄaction
-		 *¶ÔactionµÄÉÏ½çºÍÏÂ½ì£¬¸ù¾İ·Ö²¼È¡Ò»¸öËæ»úÖµ
-		 *¼ÇÂ¼È¡Öµ×î´óµÄaction,Æäcount+1
-		 *ÔÚcMaxIteration´ÎÊÔÑéÖ®ºó£¬È¡countÖµ×î´óµÄaction 
+		/*å‡åŒ€åˆ†å¸ƒç®—æ³•*/
+		/*åšcMaxIterationæ¬¡è¯•éªŒï¼Œæ¯æ¬¡è¯•éªŒéå†ä¸€æ¬¡æ‰€æœ‰çš„action
+		 *å¯¹actionçš„ä¸Šç•Œå’Œä¸‹å±Šï¼Œæ ¹æ®åˆ†å¸ƒå–ä¸€ä¸ªéšæœºå€¼
+		 *è®°å½•å–å€¼æœ€å¤§çš„action,å…¶count+1
+		 *åœ¨cMaxIterationæ¬¡è¯•éªŒä¹‹åï¼Œå–countå€¼æœ€å¤§çš„action 
 		 */
 		int cMaxIteraiton = 1000;
 		double[] upperBounds = new double[POMDP.getActionCount()];
@@ -251,7 +251,7 @@ public class GapMinCollection extends BeliefCollection {
 			int maxAction = 0;
 			double maxValue = Double.NEGATIVE_INFINITY;
 			for (int iAction = 0; iAction<POMDP.getActionCount(); iAction++) {
-				// ¾ùÔÈ·Ö²¼£¬ÉÏÏÂ½çÈ¡Ëæ»úÖµ
+				// å‡åŒ€åˆ†å¸ƒï¼Œä¸Šä¸‹ç•Œå–éšæœºå€¼
 				double upperBound = upperBounds[iAction];
 				double lowerBound = lowerBounds[iAction];
 				
@@ -301,9 +301,9 @@ public class GapMinCollection extends BeliefCollection {
 	}
 	
 	/**
-	 * ¸ù¾İ¾ùÔÈ·Ö²¼È¡Öµ
-	 * @param upperBound	ÉÏ½ç
-	 * @param lowerBound	ÏÂ½ç
+	 * æ ¹æ®å‡åŒ€åˆ†å¸ƒå–å€¼
+	 * @param upperBound	ä¸Šç•Œ
+	 * @param lowerBound	ä¸‹ç•Œ
 	 * @return
 	 */
 	/*private double getValueByAverageDistribution(double upperBound, double lowerBound) {
@@ -312,26 +312,26 @@ public class GapMinCollection extends BeliefCollection {
 	}
 	
 	*//**
-	 * ¸ù¾İÈı½Ç·Ö²¼È¡Öµ
-	 * @param upperBound	ÉÏ½ç
-	 * @param lowerBound	ÏÂ½ç
+	 * æ ¹æ®ä¸‰è§’åˆ†å¸ƒå–å€¼
+	 * @param upperBound	ä¸Šç•Œ
+	 * @param lowerBound	ä¸‹ç•Œ
 	 * @return
 	 *//*
 	private double getValueByTriangleDistribution(double upperBound, double lowerBound) {
 		double width = upperBound - lowerBound;
 		double rand_x = m_rndGenerator.nextDouble();
 		
-		//Èı½Ç·Ö²¼º¯ÊıÎªf(x)=2x,F(x)=pow(x,2), E(X)=2/3
+		//ä¸‰è§’åˆ†å¸ƒå‡½æ•°ä¸ºf(x)=2x,F(x)=pow(x,2), E(X)=2/3
 //		return Math.pow(rand_x, 2) * width + lowerBound;
 		
-		//Èı½Ç·Ö²¼º¯ÊıÎªf(x)=2-2x, F(x) = 2x-pow(x,2) ,E(X)=1/3
+		//ä¸‰è§’åˆ†å¸ƒå‡½æ•°ä¸ºf(x)=2-2x, F(x) = 2x-pow(x,2) ,E(X)=1/3
 		return (2*rand_x - Math.pow(rand_x, 2)) * width + lowerBound;
 	}
 	
 	*//**
-	 * ¸ù¾İbeta·Ö²¼È¡Öµ£¬²ÎÊıa=1,b=3
-	 * @param upperBound	ÉÏ½ç
-	 * @param lowerBound	ÏÂ½ç
+	 * æ ¹æ®betaåˆ†å¸ƒå–å€¼ï¼Œå‚æ•°a=1,b=3
+	 * @param upperBound	ä¸Šç•Œ
+	 * @param lowerBound	ä¸‹ç•Œ
 	 * @return
 	 *//*
 	private double getValueByBetaDistribution(double upperBound, double lowerBound) {

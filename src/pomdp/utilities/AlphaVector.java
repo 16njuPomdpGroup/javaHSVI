@@ -724,7 +724,7 @@ public abstract class AlphaVector implements Serializable{
 		return avResult;
 	}
 			
-	//Ê¹ÓÃÕâ¸ö¦ÁËùº¬µÄPOMDP¶ÔÏó£¬À´ĞÂ½¨Ò»¸ö¦Á
+	//ä½¿ç”¨è¿™ä¸ªÎ±æ‰€å«çš„POMDPå¯¹è±¡ï¼Œæ¥æ–°å»ºä¸€ä¸ªÎ±
 	public abstract AlphaVector newAlphaVector();
 	
 	public double getMaxValue(){

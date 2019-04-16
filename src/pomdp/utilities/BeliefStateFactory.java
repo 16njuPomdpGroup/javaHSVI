@@ -35,8 +35,8 @@ public class BeliefStateFactory{
 	protected POMDP m_pPOMDP;
 	public int m_cBeliefUpdates = 0;
 	/*
-	 * m_bCacheBeliefStatesÎªtrueÊ±£¬
-	 * ¸÷ÖÖ¼ÆËã³öÀ´µÄb£¬¶¼»áÔÚÕâÀï»º´æ×Å¡£
+	 * m_bCacheBeliefStatesä¸ºtrueæ—¶ï¼Œ
+	 * å„ç§è®¡ç®—å‡ºæ¥çš„bï¼Œéƒ½ä¼šåœ¨è¿™é‡Œç¼“å­˜ç€ã€‚
 	 */
 	protected TreeMap<BeliefState,BeliefState> m_hmCachedBeliefStates;
 	protected int m_cDiscretizationLevels;
@@ -617,7 +617,7 @@ public class BeliefStateFactory{
 		Logger.getInstance().logln( "Done computing belief state neighbors. avg " + cNeighbors / cElements );
 	}
 
-	//»ñµÃËùÓĞ×´Ì¬¸ÅÂÊÖµ¶¼Ò»ÑùµÄb
+	//è·å¾—æ‰€æœ‰çŠ¶æ€æ¦‚ç‡å€¼éƒ½ä¸€æ ·çš„b
 	public BeliefState getUniformBeliefState(){
 		if( m_bsUniformState == null ){
 			int iState = 0, cStates = m_pPOMDP.getStateCount();
@@ -746,9 +746,9 @@ public class BeliefStateFactory{
 
 	
 	/**
-	 * actionÊÇËæ»úÈ¡Ò»¸ö£¬oÊÇÈ«±éÀúµÄ
-	 * @param vBeliefPoints ÓÃÀ´¼ÆËã¾àÀëµÄ
-	 * @param bs µ±Ç°b
+	 * actionæ˜¯éšæœºå–ä¸€ä¸ªï¼Œoæ˜¯å…¨éå†çš„
+	 * @param vBeliefPoints ç”¨æ¥è®¡ç®—è·ç¦»çš„
+	 * @param bs å½“å‰b
 	 * @return
 	 */
 	public BeliefState computeRandomFarthestSuccessor( Vector<BeliefState> vBeliefPoints, BeliefState bs ){
@@ -760,14 +760,14 @@ public class BeliefStateFactory{
 
 		//Logger.getInstance().logln( "expand " + vCurrent + ", " + bs );
 
-		//Ëæ»úÈ¡Ò»¸öa£¡£¡
+		//éšæœºå–ä¸€ä¸ªaï¼ï¼
 		iAction = m_rndGenerator.nextInt( m_pPOMDP.getActionCount() );
-		//±éÀúo
+		//éå†o
 		for( iObservation = 0 ; iObservation < cObservations ; iObservation++ ){
-			//¼ÆËãb¡¢aÊ±£¬²úÉúÕâ¸öoµÄ¸ÅÂÊ
+			//è®¡ç®—bã€aæ—¶ï¼Œäº§ç”Ÿè¿™ä¸ªoçš„æ¦‚ç‡
 			dOb = bs.probabilityOGivenA( iAction, iObservation );
 			if( dOb > 0.0 ){
-				//¼ÆËãb¡¢a¡¢oÊ±£¬ºó¼Ìb
+				//è®¡ç®—bã€aã€oæ—¶ï¼Œåç»§b
 				bsNext = bs.nextBeliefState( iAction, iObservation );
 				if( bsNext != null ){
 					dDist = distance( vBeliefPoints, bsNext );

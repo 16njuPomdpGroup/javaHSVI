@@ -196,7 +196,7 @@ public abstract class BeliefState extends PriorityQueueElement implements Serial
 	}
 
 	/**
-	 * 计算出下一个信念点
+	 * 璁＄畻鍑轰笅涓�涓俊蹇电偣
 	 * @param iAction
 	 * @param iObservation
 	 * @return

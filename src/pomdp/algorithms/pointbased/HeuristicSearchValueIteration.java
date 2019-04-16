@@ -59,8 +59,8 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 
 	/**
-	 * ¸üĞÂÉÏ½ç
-	 * @param bs ĞÅÄî×´Ì¬µãb
+	 * æ›´æ–°ä¸Šç•Œ
+	 * @param bs ä¿¡å¿µçŠ¶æ€ç‚¹b
 	 */
 	protected void applyH( BeliefState bs ){
 		long lTimeBefore = 0, lTimeAfter = 0;
@@ -95,10 +95,10 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 
 	/**
-	 * ¼ÆËãexcess uncertainty£ºexcess(b, t) = width(V^(b)) - ¦Å¦Ã^-t
-	 * @param bsCurrent ĞÅÄî×´Ì¬b
-	 * @param dEpsilon ¦Å
-	 * @param dDiscount ÕÛ¿Û¦Ã^t
+	 * è®¡ç®—excess uncertaintyï¼šexcess(b, t) = width(V^(b)) - ÎµÎ³^-t
+	 * @param bsCurrent ä¿¡å¿µçŠ¶æ€b
+	 * @param dEpsilon Îµ
+	 * @param dDiscount æŠ˜æ‰£Î³^t
 	 * @return excess uncertainty
 	 */
 	protected double excess( BeliefState bsCurrent, double dEpsilon, double dDiscount ){
@@ -106,15 +106,15 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 
 	/**
-	 * width(V^(b)) = VÉÏ½ç(b) - VÏÂ½ç(b)
-	 * @param bsCurrent ĞÅÄî×´Ì¬b
+	 * width(V^(b)) = Vä¸Šç•Œ(b) - Vä¸‹ç•Œ(b)
+	 * @param bsCurrent ä¿¡å¿µçŠ¶æ€b
 	 * @return width(V^(b))
 	 */
 	protected double width( BeliefState bsCurrent ){
 		double dUpperValue = 0.0, dLowerValue = 0.0, dWidth = 0.0;
-		//VÉÏ½ç(b)
+		//Vä¸Šç•Œ(b)
 		dUpperValue = m_vfUpperBound.valueAt( bsCurrent );
-		//VÏÂ½ç(b)
+		//Vä¸‹ç•Œ(b)
 		dLowerValue = valueAt( bsCurrent );
 		dWidth = dUpperValue - dLowerValue;	
 		
@@ -131,43 +131,43 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 
 	/**
-	 * ¦Ğ = HSVI(¦Å)
-	 * 1. ³õÊ¼»¯ÉÏ½çm_vfUpperBoundºÍÏÂ½çm_vValueFunction£¬
-	 *    ÉÏ½çÔÚHeuristicSearchValueIterationµÄ¹¹Ôìº¯ÊıÖĞ³õÊ¼»¯£¬ÏÂ½çÔÚ¸¸ÀàValueIterationÖĞ³õÊ¼»¯
-	 * 2. Ñ­»·Ö´ĞĞexplore
-	 *    ½áÊøÌõ¼ş£ºÑ­»·³¬³öÖ¸¶¨´ÎÊı || ´ïµ½ÖÕÖ¹Ìõ¼ş£¨³¬³öÊ±¼ä£©
-	 *    ÔÚÑ­»·ÖĞ£¬ÈôÉÏ½çº¯ÊıµÄµãµÄ¸öÊı³¬¹ı1000 && Á½´Îµü´úÖ®¼äÉÏ½çº¯ÊıµÄµãµÄ¸öÊıÔö³¤³¬¹ı10%; ¶ÔÉÏ½çº¯Êı½øĞĞ²Ã¼ô
-	 *    ÏÂ½çº¯ÊıµÄ¼ôÖ¦ÊÇÔÚÃ¿´Î¼ÓÈëĞÂÏòÁ¿Ê±Íê³É
-	 * @param cIterations µü´ú´ÎÊı
-	 * @param dEpsilon ¦Å
-	 * @param dTargetValue Ï£Íû´ïµ½µÄ»Ø±¨
-	 * @param maxRunningTime ×î´óÔËĞĞÊ±¼ä
-	 * @param numEvaluations £¨Ã»ÓÃµ½£©
+	 * Ï€ = HSVI(Îµ)
+	 * 1. åˆå§‹åŒ–ä¸Šç•Œm_vfUpperBoundå’Œä¸‹ç•Œm_vValueFunctionï¼Œ
+	 *    ä¸Šç•Œåœ¨HeuristicSearchValueIterationçš„æ„é€ å‡½æ•°ä¸­åˆå§‹åŒ–ï¼Œä¸‹ç•Œåœ¨çˆ¶ç±»ValueIterationä¸­åˆå§‹åŒ–
+	 * 2. å¾ªç¯æ‰§è¡Œexplore
+	 *    ç»“æŸæ¡ä»¶ï¼šå¾ªç¯è¶…å‡ºæŒ‡å®šæ¬¡æ•° || è¾¾åˆ°ç»ˆæ­¢æ¡ä»¶ï¼ˆè¶…å‡ºæ—¶é—´ï¼‰
+	 *    åœ¨å¾ªç¯ä¸­ï¼Œè‹¥ä¸Šç•Œå‡½æ•°çš„ç‚¹çš„ä¸ªæ•°è¶…è¿‡1000 && ä¸¤æ¬¡è¿­ä»£ä¹‹é—´ä¸Šç•Œå‡½æ•°çš„ç‚¹çš„ä¸ªæ•°å¢é•¿è¶…è¿‡10%; å¯¹ä¸Šç•Œå‡½æ•°è¿›è¡Œè£å‰ª
+	 *    ä¸‹ç•Œå‡½æ•°çš„å‰ªææ˜¯åœ¨æ¯æ¬¡åŠ å…¥æ–°å‘é‡æ—¶å®Œæˆ
+	 * @param cIterations è¿­ä»£æ¬¡æ•°
+	 * @param dEpsilon Îµ
+	 * @param dTargetValue å¸Œæœ›è¾¾åˆ°çš„å›æŠ¥
+	 * @param maxRunningTime æœ€å¤§è¿è¡Œæ—¶é—´
+	 * @param numEvaluations ï¼ˆæ²¡ç”¨åˆ°ï¼‰
 	 */
 	public void valueIteration(int cIterations, double dEpsilon, double dTargetValue, int maxRunningTime, int numEvaluations)
 	{
-		// ³õÊ¼»¯¸÷ÖÖ±äÁ¿
-		// ³õÊ¼ĞÅÄîµã
+		// åˆå§‹åŒ–å„ç§å˜é‡
+		// åˆå§‹ä¿¡å¿µç‚¹
 		BeliefState bsInitial = m_pPOMDP.getBeliefStateFactory().getInitialBeliefState();
-		// ³õÊ¼ĞÅÄîµã¿í¶È
+		// åˆå§‹ä¿¡å¿µç‚¹å®½åº¦
 		double dInitialWidth = width( bsInitial );
 
-		// ±éÀú¼ÆÊıÆ÷ / ×î´óexploreÉî¶È
+		// éå†è®¡æ•°å™¨ / æœ€å¤§exploreæ·±åº¦
 		int iIteration = 0, iMaxDepth = 0;
 
-		// Ê±¼ä±äÁ¿
+		// æ—¶é—´å˜é‡
 		long lStartTime = System.currentTimeMillis(), lCurrentTime = 0;
 
-		// ÔËĞĞ»·¾³
+		// è¿è¡Œç¯å¢ƒ
 		Runtime rtRuntime = Runtime.getRuntime();
 
-		// ¿ØÖÆÑ­»·ÖÕÖ¹µÄ±äÁ¿
+		// æ§åˆ¶å¾ªç¯ç»ˆæ­¢çš„å˜é‡
 		boolean bDone = false;
 
-		// ¼ÇÂ¼µü´úÖĞ¼ÆËãµÄADR
+		// è®°å½•è¿­ä»£ä¸­è®¡ç®—çš„ADR
 		Pair<Double, Double> pComputedADRs = new Pair<Double, Double>();
 
-		//¹Û²âµ½µÄĞÅÄîµã
+		//è§‚æµ‹åˆ°çš„ä¿¡å¿µç‚¹
 		Vector<BeliefState> vObservedBeliefStates = new Vector<BeliefState>();
 		int cUpperBoundPoints = 0, cNoChange = 0;
 		String sMsg = "";
@@ -175,68 +175,68 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		m_cElapsedExecutionTime = 0;
 		m_cCPUExecutionTime = 0;
 
-		//¼ÆËãÊ±¼ä
+		//è®¡ç®—æ—¶é—´
 		long lCPUTimeBefore = 0, lCPUTimeAfter = 0, lCPUTimeTotal = 0;
 
 		int cValueFunctionChanges = 0;
 
-		//×î´óÖ´ĞĞÊ±¼ä£¬Ä¬ÈÏÉèÖÃÎª10·ÖÖÓ
+		//æœ€å¤§æ‰§è¡Œæ—¶é—´ï¼Œé»˜è®¤è®¾ç½®ä¸º10åˆ†é’Ÿ
 		long maxExecutionTime = m_maxExecutionTime;//1000*60*10;
 
 		Logger.getInstance().logln( "Begin " + getName() + ", Initial width = " + dInitialWidth );
 		
-		// Ñ­»·Ö÷Ìå
-		// ½áÊøÌõ¼ş£ºÑ­»·³¬³öÖ¸¶¨´ÎÊı || ´ïµ½ÖÕÖ¹Ìõ¼ş£¨³¬³öÊ±¼ä£©
+		// å¾ªç¯ä¸»ä½“
+		// ç»“æŸæ¡ä»¶ï¼šå¾ªç¯è¶…å‡ºæŒ‡å®šæ¬¡æ•° || è¾¾åˆ°ç»ˆæ­¢æ¡ä»¶ï¼ˆè¶…å‡ºæ—¶é—´ï¼‰
 		for( iIteration = 0 ; ( iIteration < cIterations ) && !bDone && !m_bTerminate ; iIteration++ ){
-			// »ñÈ¡µü´ú¿ªÊ¼µÄÊ±¼ä´Á
+			// è·å–è¿­ä»£å¼€å§‹çš„æ—¶é—´æˆ³
 			lStartTime = System.currentTimeMillis();
 			lCPUTimeBefore = JProf.getCurrentThreadCpuTimeSafe();
 			
-			// ¼ÇÂ¼µü´úµÄ×î´ó¿í¶È
+			// è®°å½•è¿­ä»£çš„æœ€å¤§å®½åº¦
 			m_dMaxWidthForIteration = 0.0;
 			
-			// exploreµÄÖ÷Ìå¹ı³Ì;·µ»ØexploreµÄ×î´óÉî¶È
+			// exploreçš„ä¸»ä½“è¿‡ç¨‹;è¿”å›exploreçš„æœ€å¤§æ·±åº¦
 			iMaxDepth = explore( bsInitial, dEpsilon, 0, 1.0, vObservedBeliefStates );
 			
-			// ÈôÉÏ½çº¯ÊıµÄµãµÄ¸öÊı³¬¹ı1000 && Á½´Îµü´úÖ®¼äÉÏ½çº¯ÊıµÄµãµÄ¸öÊıÔö³¤³¬¹ı10%; ¶ÔÉÏ½çº¯Êı½øĞĞ²Ã¼ô¡£
+			// è‹¥ä¸Šç•Œå‡½æ•°çš„ç‚¹çš„ä¸ªæ•°è¶…è¿‡1000 && ä¸¤æ¬¡è¿­ä»£ä¹‹é—´ä¸Šç•Œå‡½æ•°çš„ç‚¹çš„ä¸ªæ•°å¢é•¿è¶…è¿‡10%; å¯¹ä¸Šç•Œå‡½æ•°è¿›è¡Œè£å‰ªã€‚
 			if( ( m_vfUpperBound.getUpperBoundPointCount() > 1000 ) && ( m_vfUpperBound.getUpperBoundPointCount() > cUpperBoundPoints * 1.1 ) ){
-				// ²Ã¼ô¹ı³Ì£ºÈ¥µôÉÏ½çº¯ÊıÖĞ£¬º¯ÊıÖµºÍ³õÊ¼ÖµµÄ²îĞ¡ÓÚepsilonµÄµã
+				// è£å‰ªè¿‡ç¨‹ï¼šå»æ‰ä¸Šç•Œå‡½æ•°ä¸­ï¼Œå‡½æ•°å€¼å’Œåˆå§‹å€¼çš„å·®å°äºepsilonçš„ç‚¹
 				m_vfUpperBound.pruneUpperBound();
 				cUpperBoundPoints = m_vfUpperBound.getUpperBoundPointCount();
 			}
 			
-			// ÀÛ¼ÆexploreÉî¶È
+			// ç´¯è®¡exploreæ·±åº¦
 			m_cVisitedBeliefStates += iMaxDepth;
 			
-			// ÖØĞÂ¼ÆËãb0µãµÄwidth
+			// é‡æ–°è®¡ç®—b0ç‚¹çš„width
 			dInitialWidth = width( bsInitial );			
 			
-			//¼ÆËãÊ±¼ä
+			//è®¡ç®—æ—¶é—´
 			lCurrentTime = System.currentTimeMillis();
 			lCPUTimeAfter = JProf.getCurrentThreadCpuTimeSafe();
 			m_cElapsedExecutionTime += ( lCurrentTime - lStartTime );
 			m_cCPUExecutionTime += ( lCPUTimeAfter - lCPUTimeBefore ) / 1000000;
 			lCPUTimeTotal += lCPUTimeAfter - lCPUTimeBefore;
 			
-			//Èç¹ûmaxExecutionTime > 0 ¶øÇÒ×ÜÊ±¼ä³¬¹ımaxExecutionTime;ÖÕÖ¹µü´ú
+			//å¦‚æœmaxExecutionTime > 0 è€Œä¸”æ€»æ—¶é—´è¶…è¿‡maxExecutionTime;ç»ˆæ­¢è¿­ä»£
 			if (maxExecutionTime > 0) {
 				bDone = (m_cElapsedExecutionTime > maxExecutionTime);
 			}
 			
-			// Ã¿5´ÎÇÒÏÂ½çº¯Êı·¢Éú±ä»¯Ê±£¬¼ÆËãADR
+			// æ¯5æ¬¡ä¸”ä¸‹ç•Œå‡½æ•°å‘ç”Ÿå˜åŒ–æ—¶ï¼Œè®¡ç®—ADR
 			if( ( iIteration >= 5 ) && ( ( lCPUTimeTotal  / 1000000000 ) >= 0 ) && ( iIteration % 5 == 0 ) && m_vValueFunction.getChangesCount() > cValueFunctionChanges ){
-				//Ô­Ê¼Ëã·¨;¼ÆËãADRµÄÖµÊÇ·ñ´óÓÚ¸ø¶¨Öµ£¬Èç¹ûÊÇÔòËãÊÇÊÕÁ²			
+				//åŸå§‹ç®—æ³•;è®¡ç®—ADRçš„å€¼æ˜¯å¦å¤§äºç»™å®šå€¼ï¼Œå¦‚æœæ˜¯åˆ™ç®—æ˜¯æ”¶æ•›			
 				//bDone = checkADRConvergence( m_pPOMDP, dTargetValue, pComputedADRs );
-				//²»°ÑÕâ¸öÌõ¼ş×÷ÎªÖÕÖ¹µü´úµÄÌõ¼ş
+				//ä¸æŠŠè¿™ä¸ªæ¡ä»¶ä½œä¸ºç»ˆæ­¢è¿­ä»£çš„æ¡ä»¶
 				checkADRConvergence( m_pPOMDP, dTargetValue, pComputedADRs );
 				
-				// ¼ÇÂ¼±¾´ÎÏÂ½çº¯ÊıµÄ±ä»¯Öµ
+				// è®°å½•æœ¬æ¬¡ä¸‹ç•Œå‡½æ•°çš„å˜åŒ–å€¼
 				cValueFunctionChanges = m_vValueFunction.getChangesCount();
 				
-				//ÏÔÊ½µ÷ÓÃ À¬»ø»ØÊÕ
+				//æ˜¾å¼è°ƒç”¨ åƒåœ¾å›æ”¶
 				rtRuntime.gc();
 				
-				//Êä³öÏûÏ¢
+				//è¾“å‡ºæ¶ˆæ¯
 				sMsg = getName() + ": Iteration " + iIteration + 
 									" initial width " + round( dInitialWidth, 3 ) +
 									" V(b) " + round( m_vValueFunction.valueAt( m_pPOMDP.getBeliefStateFactory().getInitialBeliefState() ), 4 ) +
@@ -263,7 +263,7 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 									" max memory " + rtRuntime.maxMemory() / 1000000;
 			}
 			else{
-				//Êä³öÏûÏ¢
+				//è¾“å‡ºæ¶ˆæ¯
 				sMsg = getName() + ": Iteration " + iIteration + 
 						" initial width " + round( dInitialWidth, 3 ) +
 						" V(b) " + round( m_vValueFunction.valueAt( m_pPOMDP.getBeliefStateFactory().getInitialBeliefState() ), 4 ) +
@@ -288,11 +288,11 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 			Logger.getInstance().log( getName(), 0, "VI", sMsg );
 			Logger.getInstance().logln();
 			
-			//¼ÇÂ¼ÏÂ½çº¯Êı²»·¢Éú±ä»¯µÄ´ÎÊı
+			//è®°å½•ä¸‹ç•Œå‡½æ•°ä¸å‘ç”Ÿå˜åŒ–çš„æ¬¡æ•°
 			if( m_vValueFunction.getChangesCount() == cValueFunctionChanges ){
 				cNoChange++;
 			}
-			//·¢Éú±ä»¯ÔòÖÃÁã
+			//å‘ç”Ÿå˜åŒ–åˆ™ç½®é›¶
 			else
 				cNoChange = 0;
 		}
@@ -300,7 +300,7 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		m_cElapsedExecutionTime /= 1000;
 		m_cCPUExecutionTime /= 1000;
 		
-		//Êä³öÍê³ÉµÄĞÅÏ¢
+		//è¾“å‡ºå®Œæˆçš„ä¿¡æ¯
 		sMsg = "Finished " + getName() + " - time : " + m_cElapsedExecutionTime +
 				" |V| = " + m_vValueFunction.size() + 
 				" backups = " + m_cBackups + 
@@ -320,9 +320,9 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		}
 	}
 
-	// ¸üĞÂbsµãµÄÉÏÏÂ½ç
+	// æ›´æ–°bsç‚¹çš„ä¸Šä¸‹ç•Œ
 	protected void updateBounds( BeliefState bsCurrent ){
-		//¸üĞÂÏÂ½ç
+		//æ›´æ–°ä¸‹ç•Œ
 		AlphaVector avNext = backup( bsCurrent );
 		AlphaVector avCurrent = m_vValueFunction.getMaxAlpha( bsCurrent );
 		double dCurrentValue = valueAt( bsCurrent );
@@ -330,24 +330,24 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		if( dNewValue > dCurrentValue ){
 			m_vValueFunction.addPrunePointwiseDominated( avNext );
 		}
-		//¸üĞÂÉÏ½ç
+		//æ›´æ–°ä¸Šç•Œ
 		applyH( bsCurrent );
 	}
 
 
 	/**
-	 * »ñÈ¡ÏÂÒ»¸öĞÅÄîµã¦Ó(b, a^*, o^*)
+	 * è·å–ä¸‹ä¸€ä¸ªä¿¡å¿µç‚¹Ï„(b, a^*, o^*)
 	 * @param bsCurrent b
-	 * @param dEpsilon ¦Å
-	 * @param dDiscount ¦Ã^(t+1)
-	 * @return ÏÂÒ»¸öĞÅÄîµã
+	 * @param dEpsilon Îµ
+	 * @param dDiscount Î³^(t+1)
+	 * @return ä¸‹ä¸€ä¸ªä¿¡å¿µç‚¹
 	 */
-	// explore»ñÈ¡ÏÂÒ»¸öĞÅÄîµã
+	// exploreè·å–ä¸‹ä¸€ä¸ªä¿¡å¿µç‚¹
 	protected BeliefState getNextBeliefState( BeliefState bsCurrent, double dEpsilon, double dDiscount ){
-		//»ñÈ¡×îÓÅµÄaction
+		//è·å–æœ€ä¼˜çš„action
 		int iAction = getExplorationAction( bsCurrent );
 		
-		//¸ù¾İaction»ñÈ¡×îÓÅµÄ¹Û²â
+		//æ ¹æ®actionè·å–æœ€ä¼˜çš„è§‚æµ‹
 		int iObservation = getExplorationObservation( bsCurrent, iAction, dEpsilon, dDiscount );
 		
 		if( iObservation == -1 ){
@@ -358,21 +358,21 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 
 	/**
-	 * explore(b, ¦Å, t)
-	 * 1.Éî¶È´óÓÚ200»òÕß¿í¶ÈĞ¡ÓÚãĞÖµ£¨epsilon/pow(gama,t))·µ»Ø
-	 * 2.»ñµÃÏÂÒ»¸öĞÅÄîµã£¬ÆäÖĞ°üº¬ÁËÑ¡Ôñ¶¯×÷ºÍÑ¡Ôñ¹Û²ì
-	 * 3.µ÷ÓÃexplore(b',¦Å,t+1)
-	 * 4.ÔÚĞÅÄî×´Ì¬µãbÉÏ ¸üĞÂ ÉÏÏÂ½çÖµº¯Êı
-	 * @param bsCurrent ĞÅÄî×´Ì¬b
-	 * @param dEpsilon ¦Å
-	 * @param iTime ¸Ãº¯ÊıµÄµ÷ÓÃ´ÎÊı
-	 * @param dDiscount ¦Ã^(t+1)
-	 * @param vObservedBeliefStates ÒÑ¾­·ÃÎÊ¹ıµÄĞÅÄî×´Ì¬µã
-	 * @return ÔÚĞÅÄî×´Ì¬Éú³ÉÊ÷ÖĞÌ½Ë÷µÄÉî¶Èt
+	 * explore(b, Îµ, t)
+	 * 1.æ·±åº¦å¤§äº200æˆ–è€…å®½åº¦å°äºé˜ˆå€¼ï¼ˆepsilon/pow(gama,t))è¿”å›
+	 * 2.è·å¾—ä¸‹ä¸€ä¸ªä¿¡å¿µç‚¹ï¼Œå…¶ä¸­åŒ…å«äº†é€‰æ‹©åŠ¨ä½œå’Œé€‰æ‹©è§‚å¯Ÿ
+	 * 3.è°ƒç”¨explore(b',Îµ,t+1)
+	 * 4.åœ¨ä¿¡å¿µçŠ¶æ€ç‚¹bä¸Š æ›´æ–° ä¸Šä¸‹ç•Œå€¼å‡½æ•°
+	 * @param bsCurrent ä¿¡å¿µçŠ¶æ€b
+	 * @param dEpsilon Îµ
+	 * @param iTime è¯¥å‡½æ•°çš„è°ƒç”¨æ¬¡æ•°
+	 * @param dDiscount Î³^(t+1)
+	 * @param vObservedBeliefStates å·²ç»è®¿é—®è¿‡çš„ä¿¡å¿µçŠ¶æ€ç‚¹
+	 * @return åœ¨ä¿¡å¿µçŠ¶æ€ç”Ÿæˆæ ‘ä¸­æ¢ç´¢çš„æ·±åº¦t
 	 */
-	//explore¹ı³Ì
+	//exploreè¿‡ç¨‹
 	protected int explore( BeliefState bsCurrent, double dEpsilon, int iTime, double dDiscount, Vector<BeliefState> vObservedBeliefStates ){
-		//³õÊ¼»¯¸÷ÖÖ±äÁ¿
+		//åˆå§‹åŒ–å„ç§å˜é‡
 		double dWidth = width( bsCurrent );
 		int iAction = 0, iObservation = 0;
 		BeliefState bsNext = null;
@@ -381,22 +381,22 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		if( m_bTerminate )
 			return iTime;
 		
-		// Èç¹ûbsµãÖ®Ç°Ã»ÓĞexplore¹ı£¬Ìí¼Óµ½ObservedBeliefStatesµã¼¯ºÏ¡£
+		// å¦‚æœbsç‚¹ä¹‹å‰æ²¡æœ‰exploreè¿‡ï¼Œæ·»åŠ åˆ°ObservedBeliefStatesç‚¹é›†åˆã€‚
 		if( !vObservedBeliefStates.contains( bsCurrent ) )
 			vObservedBeliefStates.add( bsCurrent );
 		
-		// ¼ÇÂ¼×î´ówidth
+		// è®°å½•æœ€å¤§width
 		if( dWidth > m_dMaxWidthForIteration )
 			m_dMaxWidthForIteration = dWidth;
 		
-		// Éî¶È´óÓÚ200»òÕß¿í¶ÈĞ¡ÓÚãĞÖµ£¨epsilon/pow(gama,t))
+		// æ·±åº¦å¤§äº200æˆ–è€…å®½åº¦å°äºé˜ˆå€¼ï¼ˆepsilon/pow(gama,t))
 		if( iTime > 200 || dWidth < ( dEpsilon / dDiscount ) )
 			return iTime;
 		
-		// »ñµÃÏÂÒ»¸öĞÅÄîµã
+		// è·å¾—ä¸‹ä¸€ä¸ªä¿¡å¿µç‚¹
 		bsNext = getNextBeliefState( bsCurrent, dEpsilon, dDiscount * m_dGamma );
 
-		// ÏÂÒ»ĞÅÄîµã²»Îª¿Õ ÇÒ ²»µÈÓÚµ±Ç°µã£»µİ¹é½øĞĞexplore¹ı³Ì
+		// ä¸‹ä¸€ä¿¡å¿µç‚¹ä¸ä¸ºç©º ä¸” ä¸ç­‰äºå½“å‰ç‚¹ï¼›é€’å½’è¿›è¡Œexploreè¿‡ç¨‹
 		if( ( bsNext != null ) && ( bsNext != bsCurrent ) ){
 			iMaxDepth = explore( bsNext, dEpsilon, iTime + 1, dDiscount * m_dGamma, vObservedBeliefStates );
 		}
@@ -404,12 +404,12 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 			iMaxDepth = iTime;
 		}
 		
-		// ¸üĞÂµ±Ç°µãµÄÉÏÏÂ½ç
+		// æ›´æ–°å½“å‰ç‚¹çš„ä¸Šä¸‹ç•Œ
 		updateBounds( bsCurrent );	
 		
 		
-		// ¸ù¾İËæ»ú¸ÅÂÊµ±Ç°µã¼ÌĞøexplore
-		// Ä¬ÈÏ²ÎÊıÌõ¼şÏÂ²»´¥·¢
+		// æ ¹æ®éšæœºæ¦‚ç‡å½“å‰ç‚¹ç»§ç»­explore
+		// é»˜è®¤å‚æ•°æ¡ä»¶ä¸‹ä¸è§¦å‘
 		if( m_dExplorationFactor > 0.0 ){
 			int iActionAfterUpdate = getExplorationAction( bsCurrent );
 			if( iActionAfterUpdate != iAction ){
@@ -428,14 +428,14 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 
 	/**
-	 * Ñ¡Ôñ¹Û²ìo^*
-	 * @param bsCurrent ĞÅÄî×´Ì¬µãb
-	 * @param iAction ¶¯×÷a^*
-	 * @param dEpsilon ¦Å
-	 * @param dDiscount ¦Ã^t
-	 * @return ËùÑ¡¹Û²ìo^*µÄÏÂ±ê
+	 * é€‰æ‹©è§‚å¯Ÿo^*
+	 * @param bsCurrent ä¿¡å¿µçŠ¶æ€ç‚¹b
+	 * @param iAction åŠ¨ä½œa^*
+	 * @param dEpsilon Îµ
+	 * @param dDiscount Î³^t
+	 * @return æ‰€é€‰è§‚å¯Ÿo^*çš„ä¸‹æ ‡
 	 */
-	// »ñÈ¡×îÓÅµÄ¹Û²â
+	// è·å–æœ€ä¼˜çš„è§‚æµ‹
 	protected int getExplorationObservation( BeliefState bsCurrent, int iAction, 
 			double dEpsilon, double dDiscount ){
 		int iObservation = 0, iMaxObservation = -1;
@@ -446,35 +446,35 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 			//Pr(o|b,a^*)
 			dProb = bsCurrent.probabilityOGivenA( iAction, iObservation );
 			if( dProb > 0 ){
-				//¦Ó(b, a^*, o) ¼´b'
+				//Ï„(b, a^*, o) å³b'
 				bsNext = bsCurrent.nextBeliefState( iAction, iObservation );
-				//excess(¦Ó(b, a^*, o), t+1) ÕâÀïµÄdDiscountÎª¦Ã^(t+1)
+				//excess(Ï„(b, a^*, o), t+1) è¿™é‡Œçš„dDiscountä¸ºÎ³^(t+1)
 				dExcess = excess( bsNext, dEpsilon, dDiscount );
-				//Pr(o|b,a^*) * excess(¦Ó(b, a^*, o), t+1)
+				//Pr(o|b,a^*) * excess(Ï„(b, a^*, o), t+1)
 				dValue = dProb * dExcess;
-				// o* = argmax[ Pr(o|b,a^*) * excess(¦Ó(b, a^*, o), t+1) ]
+				// o* = argmax[ Pr(o|b,a^*) * excess(Ï„(b, a^*, o), t+1) ]
 				if( dValue > dMaxValue ){
 					dMaxValue = dValue;
 					iMaxObservation = iObservation;
 				}
 			}
 		}
-		// o* = argmax[ Pr(o|b,a^*) * excess(¦Ó(b, a^*, o), t+1) ]
+		// o* = argmax[ Pr(o|b,a^*) * excess(Ï„(b, a^*, o), t+1) ]
 		return iMaxObservation;
 	}
 
 	/**
-	 * Ñ¡Ôñ¶¯×÷a^*
-	 * @param bsCurrent ĞÅÄî×´Ì¬µãb
-	 * @return ËùÑ¡¶¯×÷a^*µÄÏÂ±ê
+	 * é€‰æ‹©åŠ¨ä½œa^*
+	 * @param bsCurrent ä¿¡å¿µçŠ¶æ€ç‚¹b
+	 * @return æ‰€é€‰åŠ¨ä½œa^*çš„ä¸‹æ ‡
 	 */
 	protected int getExplorationAction( BeliefState bsCurrent ){
-		/*Ô­Ê¼HSVIËã·¨£¬¸ù¾İÉÏ½çÈ¡action*/
+		/*åŸå§‹HSVIç®—æ³•ï¼Œæ ¹æ®ä¸Šç•Œå–action*/
 //		if (algorithmName == null) {
 //			return m_vfUpperBound.getAction( bsCurrent );
 //		}
 //		
-//		/*¸ù¾İ·Ö²¼È¡action*/
+//		/*æ ¹æ®åˆ†å¸ƒå–action*/
 //		else {
 //			return getActionByDistribution(bsCurrent);
 //		}
@@ -494,7 +494,7 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 			return m_vfUpperBound.getAction( bsCurrent );
 		}
 		
-		/*¸ù¾İ·Ö²¼È¡action*/
+		/*æ ¹æ®åˆ†å¸ƒå–action*/
 		else {
 			return getActionByDistribution(bsCurrent);
 		}
@@ -503,11 +503,11 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 	
 	private int getActionByDistribution ( BeliefState bs ) {
-		/*¾ùÔÈ·Ö²¼Ëã·¨*/
-		/*×öcMaxIteration´ÎÊÔÑé£¬Ã¿´ÎÊÔÑé±éÀúÒ»´ÎËùÓĞµÄaction
-		 *¶ÔactionµÄÉÏ½çºÍÏÂ½ì£¬¸ù¾İ·Ö²¼È¡Ò»¸öËæ»úÖµ
-		 *¼ÇÂ¼È¡Öµ×î´óµÄaction,Æäcount+1
-		 *ÔÚcMaxIteration´ÎÊÔÑéÖ®ºó£¬È¡countÖµ×î´óµÄaction 
+		/*å‡åŒ€åˆ†å¸ƒç®—æ³•*/
+		/*åšcMaxIterationæ¬¡è¯•éªŒï¼Œæ¯æ¬¡è¯•éªŒéå†ä¸€æ¬¡æ‰€æœ‰çš„action
+		 *å¯¹actionçš„ä¸Šç•Œå’Œä¸‹å±Šï¼Œæ ¹æ®åˆ†å¸ƒå–ä¸€ä¸ªéšæœºå€¼
+		 *è®°å½•å–å€¼æœ€å¤§çš„action,å…¶count+1
+		 *åœ¨cMaxIterationæ¬¡è¯•éªŒä¹‹åï¼Œå–countå€¼æœ€å¤§çš„action 
 		 */
 		int cMaxIteraiton = 1000;
 		double[] upperBounds = new double[m_pPOMDP.getActionCount()];
@@ -526,7 +526,7 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 			int maxAction = 0;
 			double maxValue = Double.NEGATIVE_INFINITY;
 			for (int iAction = 0; iAction<m_pPOMDP.getActionCount(); iAction++) {
-				// ¾ùÔÈ·Ö²¼£¬ÉÏÏÂ½çÈ¡Ëæ»úÖµ
+				// å‡åŒ€åˆ†å¸ƒï¼Œä¸Šä¸‹ç•Œå–éšæœºå€¼
 				double upperBound = upperBounds[iAction];
 				double lowerBound = lowerBounds[iAction];
 				
@@ -567,9 +567,9 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 	
 	/**
-	 * ¸ù¾İ¾ùÔÈ·Ö²¼È¡Öµ
-	 * @param upperBound	ÉÏ½ç
-	 * @param lowerBound	ÏÂ½ç
+	 * æ ¹æ®å‡åŒ€åˆ†å¸ƒå–å€¼
+	 * @param upperBound	ä¸Šç•Œ
+	 * @param lowerBound	ä¸‹ç•Œ
 	 * @return
 	 */
 	/*private double getValueByAverageDistribution(double upperBound, double lowerBound) {
@@ -578,26 +578,26 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 	}
 	
 	*//**
-	 * ¸ù¾İÈı½Ç·Ö²¼È¡Öµ
-	 * @param upperBound	ÉÏ½ç
-	 * @param lowerBound	ÏÂ½ç
+	 * æ ¹æ®ä¸‰è§’åˆ†å¸ƒå–å€¼
+	 * @param upperBound	ä¸Šç•Œ
+	 * @param lowerBound	ä¸‹ç•Œ
 	 * @return
 	 *//*
 	private double getValueByTriangleDistribution(double upperBound, double lowerBound) {
 		double width = upperBound - lowerBound;
 		double rand_x = m_rndGenerator.nextDouble();
 		
-		//Èı½Ç·Ö²¼º¯ÊıÎªf(x)=2x,F(x)=pow(x,2), E(X)=2/3
+		//ä¸‰è§’åˆ†å¸ƒå‡½æ•°ä¸ºf(x)=2x,F(x)=pow(x,2), E(X)=2/3
 //		return Math.pow(rand_x, 2) * width + lowerBound;
 		
-		//Èı½Ç·Ö²¼º¯ÊıÎªf(x)=2-2x, F(x) = 2x-pow(x,2) ,E(X)=1/3
+		//ä¸‰è§’åˆ†å¸ƒå‡½æ•°ä¸ºf(x)=2-2x, F(x) = 2x-pow(x,2) ,E(X)=1/3
 		return (2*rand_x - Math.pow(rand_x, 2)) * width + lowerBound;
 	}
 	
 	*//**
-	 * ¸ù¾İ£â£å£ô£á·Ö²¼È¡Öµ£¬²ÎÊıa=1,b=3
-	 * @param upperBound	ÉÏ½ç
-	 * @param lowerBound	ÏÂ½ç
+	 * æ ¹æ®ï½‚ï½…ï½”ï½åˆ†å¸ƒå–å€¼ï¼Œå‚æ•°a=1,b=3
+	 * @param upperBound	ä¸Šç•Œ
+	 * @param lowerBound	ä¸‹ç•Œ
 	 * @return
 	 *//*
 	private double getValueByBetaDistribution(double upperBound, double lowerBound) {
@@ -607,22 +607,22 @@ public class HeuristicSearchValueIteration extends ValueIteration {
 		return b.calculateBeta(1, 3, 0, rand_x)*width + lowerBound;
 	}*/
 	
-	//»ñÈ¡µ±Ç°ĞÅÄîµãµÄÏÂ½çÖµ¡£
-	//´úÂëÀ´×Ôbackup¹ı³Ì
+	//è·å–å½“å‰ä¿¡å¿µç‚¹çš„ä¸‹ç•Œå€¼ã€‚
+	//ä»£ç æ¥è‡ªbackupè¿‡ç¨‹
 	private double getLowerBound(BeliefState bs, int iAction, LinearValueFunctionApproximation vValueFunction) {
-		// ³õÊ¼»¯¸÷ÖÖÖµ¡£
+		// åˆå§‹åŒ–å„ç§å€¼ã€‚
 		/*AlphaVector avMax = null, avG = null, avSum = null;
 		List<AlphaVector> vVectors = new LinkedList<AlphaVector>(vValueFunction.getVectors());
 		double dMaxValue = MIN_INF, dValue = 0, dProb = 0.0;
 		
-		// ±éÀúËùÓĞµÄ¹Û²â£¬
+		// éå†æ‰€æœ‰çš„è§‚æµ‹ï¼Œ
 		for(int iObservation = 0 ; iObservation < m_cObservations ; iObservation++ ){
 			dProb = bs.probabilityOGivenA( iAction, iObservation );
 			if( dProb > 0.0 ){
 				//dMaxValue = MIN_INF;
 				//argmax_i g^i_a,o \cdot b
-				//¼ÆËãÃ¿¸öÏòÁ¿µÄ»Ø±¨Öµ£¬È¡»Ø±¨×î´óµÄÏòÁ¿µÄµã³Ë½á¹û¡£
-				// ¼´ÏÂ½ç
+				//è®¡ç®—æ¯ä¸ªå‘é‡çš„å›æŠ¥å€¼ï¼Œå–å›æŠ¥æœ€å¤§çš„å‘é‡çš„ç‚¹ä¹˜ç»“æœã€‚
+				// å³ä¸‹ç•Œ
 				for( AlphaVector avAlpha : vVectors ){
 					if( avAlpha != null ){
 						avG = avAlpha.G( iAction, iObservation );

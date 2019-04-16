@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" addBOMForNewFiles="with NO BOM">
-    <file url="file://$PROJECT_DIR$/src/pomdp/integral/Beta.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/pomdp/integral/Eval.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/pomdp/integral/IEval.java" charset="GBK" />
-    <file url="PROJECT" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/AllExperiments.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/POMDPExperiment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/SingleExperiment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/algorithms/ValueIteration.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/algorithms/beliefcollection/GapMinCollection.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/algorithms/beliefcollection/PBVIDownToTopCollection.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/algorithms/pointbased/GenericValueIteration.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/algorithms/pointbased/HeuristicSearchValueIteration.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/algorithms/pointbased/PointBasedValueIteration.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/environments/POMDP.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/integral/Beta.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/integral/Eval.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/integral/IEval.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/AlphaVector.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/BeliefState.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/BeliefStateFactory.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/BeliefStateVector.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/POMDPLoader.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/SparseTabularFunction.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/datastructures/Function.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/utilities/distribution/DistributionCalculator.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/valuefunction/LinearValueFunctionApproximation.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/valuefunction/MDPValueFunction.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pomdp/valuefunction/UpperBoundValueFunctionApproximation.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

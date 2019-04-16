@@ -20,8 +20,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.sun.swing.internal.plaf.basic.resources.basic;
-
 import pomdp.algorithms.PolicyStrategy;
 import pomdp.environments.POMDP.RewardType;
 import pomdp.utilities.AlphaVector;
