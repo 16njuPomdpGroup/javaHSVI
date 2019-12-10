@@ -5,20 +5,11 @@ import pomdp.algorithms.gridbased.FixedSetGrid;
 import pomdp.algorithms.gridbased.VariableResolutionGrid;
 import pomdp.algorithms.online.RealTimeBeliefSpaceSearch;
 import pomdp.algorithms.online.RealTimeDynamicProgramming;
-import pomdp.algorithms.pointbased.ForwardSearchValueIteration;
-import pomdp.algorithms.pointbased.GenericValueIteration;
-import pomdp.algorithms.pointbased.HeuristicSearchValueIteration;
-import pomdp.algorithms.pointbased.PerseusValueIteration;
-import pomdp.algorithms.pointbased.PointBasedErrorMinimization;
-import pomdp.algorithms.pointbased.PointBasedValueIteration;
-import pomdp.algorithms.pointbased.PrioritizedPBVI;
-import pomdp.algorithms.pointbased.PrioritizedPerseus;
-import pomdp.algorithms.pointbased.PrioritizedValueIteration;
+import pomdp.algorithms.pointbased.*;
 import pomdp.environments.POMDP;
 import pomdp.utilities.distribution.AverageDistributionCalculator;
 import pomdp.utilities.distribution.BetaDistributionCaculator;
 import pomdp.utilities.distribution.TriangleDistributionCalculator;
-import pomdp.valuefunction.MDPValueFunction;
 
 public class AlgorithmsFactory {
 	public static ValueIteration getAlgorithm( String sName, POMDP pomdp ){
@@ -48,6 +39,8 @@ public class AlgorithmsFactory {
 			return new FixedSetGrid( pomdp );
 		if( sName.equals( "VRG" ) )
 			return new VariableResolutionGrid( pomdp );
+		if( sName.equals( "PFSVI" ) )
+			return new ProbabilisticForwardSearchValueIteration( pomdp );
 		//if( sName.equals("GENERIC"))
 		//	return new GenericValueIteration(pomdp);
 		
